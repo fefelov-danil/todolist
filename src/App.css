@@ -1,0 +1,17 @@
+/*.App {*/
+/*  padding: 30px;*/
+/*  display: flex;*/
+/*}*/
+
+/*.App > div {*/
+/*  margin-right: 50px;*/
+/*}*/
+
+.is-done {
+  font-weight: bold;
+  opacity: 0.5;
+}
+/*.active-filter {*/
+/*  background-color: darkcyan;*/
+/*  color: white;*/
+/*}*/
