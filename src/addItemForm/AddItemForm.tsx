@@ -7,7 +7,6 @@ type AddItemFormPropsType = {
 }
 
 export const AddItemForm = React.memo( (props: AddItemFormPropsType) => {
-    console.log("AddItemForm")
     const [title, setTitle] = useState<string>("")
     const [error, setError] = useState<boolean>(false)
 
@@ -22,10 +21,10 @@ export const AddItemForm = React.memo( (props: AddItemFormPropsType) => {
     }
 
     const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>)=> {
-        const itemTitle = e.currentTarget.value.trim()
         setTitle(e.currentTarget.value)
-        if(error && itemTitle)setError(false)
-        if(!error && !itemTitle)setError(true)
+        const itemTitle = e.currentTarget.value.trim()
+        if(error && itemTitle) setError(false)
+        if(!error && !itemTitle) setError(true)
     }
 
     const onKeyDownAddTask  = (e: KeyboardEvent<HTMLInputElement>)=> e.key === "Enter" && addTask()

@@ -1,36 +1,20 @@
-import React, {useCallback} from 'react';
-import './App.css';
-import {TodoList} from "./TodoList";
-import {AddItemForm} from "./AddItemForm";
+import React, {useCallback, useEffect} from 'react';
+import 'app/App.css';
+import {TodoList} from "TodoList";
+import {AddItemForm} from "addItemForm/AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import {Menu} from "@material-ui/icons";
-import {addTodolistAC} from "./reducers/todolist-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./reducers/store";
-
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
-export type FilterValuesType = "all" | "active" | "completed"
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
-export type TasksStateType = {
-    [todoListID: string]: Array<TaskType>
-}
+import {addTodolistTC, fetchTodoListsThunk} from "reducers/todolist-reducer";
+import {useAppDispatch, useAppSelector} from "hooks/hooks";
 
 export function AppWithRedux() {
-    console.log("AppWithRedux")
     //BLL:
-    const dispatch = useDispatch()
-    const todoLists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
+    const dispatch = useAppDispatch()
+    const todoLists = useAppSelector(state => state.todoLists)
 
     const addTodoList = useCallback ((title: string) => {
-        dispatch(addTodolistAC(title))
+        dispatch(addTodolistTC(title))
     }, [])
 
     //GUI:
@@ -55,6 +39,10 @@ export function AppWithRedux() {
         })
         : <span>Create your first TodoList!</span>
 
+    useEffect(() => {
+        dispatch(fetchTodoListsThunk())
+    }, [])
+
     return (
         <div className="App">
             <AppBar position="static">
@@ -63,11 +51,14 @@ export function AppWithRedux() {
                         <Menu/>
                     </IconButton>
                     <Typography variant="h6">
-                        Todolists
+                        TodoLists
                     </Typography>
                     <Button color="inherit" variant={"outlined"}>Login</Button>
                 </Toolbar>
             </AppBar>
+            <div className={'linear-progress'}>
+                <LinearProgress />
+            </div>
             <Container fixed>
                 <Grid container style={{margin: "15px 0"}}>
                     <AddItemForm addItem={addTodoList} />
