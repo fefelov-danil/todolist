@@ -1,4 +1,5 @@
 import axios from "axios";
+import {RequestStatusType} from "app/app-reducer";
 
 
 const instance = axios.create({
@@ -26,7 +27,7 @@ export const todoListsAPI = {
         return instance.get<GetTasksResponseType>(`/todo-lists/${todoListId}/tasks`)
     },
     createTask(todoListId: string, title: string) {
-        return instance.post<ResponseType<{item: TaskType}>>(`/todo-lists/${todoListId}/tasks`, {title})
+        return instance.post<ResponseType<{ item: TaskType }>>(`/todo-lists/${todoListId}/tasks`, {title})
     },
     updateTask(todoListId: string, taskId: string, model: UpdateTaskModelType) {
         return instance.put<ResponseType<{item: TaskType}>>(`/todo-lists/${todoListId}/tasks/${taskId}`, model)
@@ -46,11 +47,12 @@ export type TodoListType = {
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodolistDomainType = TodoListType & {
     filter: FilterValuesType
+    entityStatus: RequestStatusType
 }
 export type ResponseType<T = {}> = {
     data: T
     fieldsErrors: Array<string>
-    messages: Array<number>
+    messages: Array<string>
     resultCode: number
 }
 export enum TaskStatuses {
@@ -66,6 +68,11 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4
 }
+export enum ResultCode {
+    SUCCESSFUL = 0,
+    BAD_RESPONSE = 1,
+    CAPTCHA = 10
+}
 export type TaskType = {
     addedDate: string
     deadline: string
@@ -78,7 +85,7 @@ export type TaskType = {
     title: string
     todoListId: string
 }
-type UpdateTaskModelType = {
+export type UpdateTaskModelType = {
     title: string
     description: string
     status: TaskStatuses

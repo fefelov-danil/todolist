@@ -1,9 +1,10 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {AddCircleOutline} from "@material-ui/icons";
-import {IconButton, TextField} from "@material-ui/core";
+import {IconButton, TextField} from "@mui/material";
+import {AddCircleOutline} from "@mui/icons-material";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
+    disabled: boolean
 }
 
 export const AddItemForm = React.memo( (props: AddItemFormPropsType) => {
@@ -39,12 +40,14 @@ export const AddItemForm = React.memo( (props: AddItemFormPropsType) => {
                 label={"Title"}
                 onChange={onChangeSetTitle}
                 onKeyDown={onKeyDownAddTask}
+                disabled={props.disabled}
                 error={error}
                 helperText={error && "Title is required!"}
             />
             <IconButton
                 color={"primary"}
                 size={"small"}
+                disabled={props.disabled}
                 onClick={addTask}>
                 <AddCircleOutline/>
             </IconButton>

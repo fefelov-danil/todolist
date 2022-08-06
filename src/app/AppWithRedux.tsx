@@ -1,17 +1,19 @@
 import React, {useCallback, useEffect} from 'react';
 import 'app/App.css';
-import {TodoList} from "TodoList";
-import {AddItemForm} from "addItemForm/AddItemForm";
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import {Menu} from "@material-ui/icons";
+import {TodoList} from "components/todolist/TodoList";
+import {AddItemForm} from "components/addItemForm/AddItemForm";
 import {addTodolistTC, fetchTodoListsThunk} from "reducers/todolist-reducer";
 import {useAppDispatch, useAppSelector} from "hooks/hooks";
+import LinearProgress from "@mui/material/LinearProgress";
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {Menu} from "@mui/icons-material";
+import ErrorSnackbar from "components/errorSnackbar/ErrorSnackbar";
 
 export function AppWithRedux() {
     //BLL:
     const dispatch = useAppDispatch()
     const todoLists = useAppSelector(state => state.todoLists)
+    const status = useAppSelector(state => state.app.status)
 
     const addTodoList = useCallback ((title: string) => {
         dispatch(addTodolistTC(title))
@@ -32,6 +34,7 @@ export function AppWithRedux() {
                             todoListID={tl.id}
                             filter={tl.filter}
                             title={tl.title}
+                            entityStatus={tl.entityStatus}
                         />
                     </Paper>
                 </Grid>
@@ -45,6 +48,7 @@ export function AppWithRedux() {
 
     return (
         <div className="App">
+            <ErrorSnackbar/>
             <AppBar position="static">
                 <Toolbar style={{justifyContent: "space-between"}}>
                     <IconButton edge="start" color="inherit" aria-label="menu">
@@ -55,13 +59,15 @@ export function AppWithRedux() {
                     </Typography>
                     <Button color="inherit" variant={"outlined"}>Login</Button>
                 </Toolbar>
+                <div className={'linear-progress'}>
+                    {status === 'loading' && <LinearProgress />}
+                </div>
             </AppBar>
-            <div className={'linear-progress'}>
-                <LinearProgress />
-            </div>
             <Container fixed>
                 <Grid container style={{margin: "15px 0"}}>
-                    <AddItemForm addItem={addTodoList} />
+                    <AddItemForm
+                        addItem={addTodoList}
+                        disabled={false}/>
                 </Grid>
                 <Grid  container spacing={4}>
                     {todoListsComponents}

@@ -1,18 +1,21 @@
 import React, {useCallback, useEffect} from 'react';
-import {AddItemForm} from "addItemForm/AddItemForm";
-import {EditableSpan} from "editableSpan/EditableSpan";
-import {Button, IconButton, List} from "@material-ui/core";
-import {DeleteOutline} from "@material-ui/icons";
-import {addTasksTC, fetchTasksTC} from "reducers/tasks-reducer";
+import {AddItemForm} from "components/addItemForm/AddItemForm";
+import {EditableSpan} from "components/editableSpan/EditableSpan";
+import {addTaskTC, fetchTasksTC} from "reducers/tasks-reducer";
 import {changeTodoListFilterAC, changeTodolistTC, removeTodolistTC} from "reducers/todolist-reducer";
-import {Task} from "task/Task";
+import {Task} from "components/todolist/task/Task";
 import {FilterValuesType, TaskStatuses} from "api/todoListsAPI";
 import {useAppDispatch, useAppSelector} from "hooks/hooks";
+import IconButton from '@mui/material/IconButton/IconButton';
+import {DeleteOutline} from "@mui/icons-material";
+import {Button, List} from "@mui/material";
+import {RequestStatusType} from "app/app-reducer";
 
 type TodoListPropsType = {
     todoListID: string
     title: string
     filter: FilterValuesType
+    entityStatus: RequestStatusType
 }
 
 export const TodoList = React.memo( (props: TodoListPropsType) => {
@@ -32,7 +35,7 @@ export const TodoList = React.memo( (props: TodoListPropsType) => {
     }, [props.todoListID])
 
     const addTask = useCallback((title: string) => {
-        dispatch(addTasksTC(props.todoListID, title))
+        dispatch(addTaskTC(props.todoListID, title))
     }, [props.todoListID])
 
     let tasksForRender = tasks
@@ -62,11 +65,15 @@ export const TodoList = React.memo( (props: TodoListPropsType) => {
                 <IconButton
                     color={"secondary"}
                     size={"small"}
+                    disabled={props.entityStatus === 'loading'}
                     onClick={removeTodoList}>
                     <DeleteOutline/>
                 </IconButton>
             </h3>
-            <AddItemForm addItem={addTask} />
+            <AddItemForm
+                addItem={addTask}
+                disabled={props.entityStatus === 'loading'}
+                />
             <List>
                 {tasksJSXElements}
             </List>
