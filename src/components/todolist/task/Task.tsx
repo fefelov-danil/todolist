@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useCallback} from 'react';
 import {EditableSpan} from "components/editableSpan/EditableSpan";
 import {removeTaskTC, updateTaskTC} from "reducers/tasks-reducer";
-import {TaskStatuses, TaskType} from "api/todoListsAPI";
+import {TaskDomainType, TaskStatuses, TaskType} from "api/todoListsAPI";
 import {useAppDispatch} from "hooks/hooks";
 import {Checkbox, ListItem} from "@mui/material";
 import IconButton from "@mui/material/IconButton/IconButton";
@@ -9,7 +9,7 @@ import {HighlightOff} from "@mui/icons-material";
 
 type TaskPropsType = {
     todoListID: string
-    task: TaskType
+    task: TaskDomainType
 }
 
 export const Task = React.memo( (props: TaskPropsType) => {
@@ -37,16 +37,19 @@ export const Task = React.memo( (props: TaskPropsType) => {
                 size={"small"}
                 color={"primary"}
                 onChange={changeStatus}
-                checked={props.task.status === TaskStatuses.Completed}/>
+                checked={props.task.status === TaskStatuses.Completed}
+                disabled={props.task.entityStatus === "loading"}/>
             <EditableSpan
                 title={props.task.title}
                 classes={taskClasses}
                 updateTitle={changeTaskTitle}
+                disabled={props.task.entityStatus === "loading"}
             />
             <IconButton
                 color={"secondary"}
                 size={"small"}
-                onClick={removeTask}>
+                onClick={removeTask}
+                disabled={props.task.entityStatus === "loading"}>
                 <HighlightOff/>
             </IconButton>
         </ListItem>

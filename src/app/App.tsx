@@ -9,11 +9,11 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography}
 import {Menu} from "@mui/icons-material";
 import ErrorSnackbar from "components/errorSnackbar/ErrorSnackbar";
 
-export function AppWithRedux() {
+export function App() {
     //BLL:
     const dispatch = useAppDispatch()
     const todoLists = useAppSelector(state => state.todoLists)
-    const status = useAppSelector(state => state.app.status)
+    const appStatus = useAppSelector(state => state.app.appStatus)
 
     const addTodoList = useCallback ((title: string) => {
         dispatch(addTodolistTC(title))
@@ -60,14 +60,12 @@ export function AppWithRedux() {
                     <Button color="inherit" variant={"outlined"}>Login</Button>
                 </Toolbar>
                 <div className={'linear-progress'}>
-                    {status === 'loading' && <LinearProgress />}
+                    {appStatus === 'loading' && <LinearProgress />}
                 </div>
             </AppBar>
             <Container fixed>
                 <Grid container style={{margin: "15px 0"}}>
-                    <AddItemForm
-                        addItem={addTodoList}
-                        disabled={false}/>
+                    <AddItemForm addItem={addTodoList}/>
                 </Grid>
                 <Grid  container spacing={4}>
                     {todoListsComponents}

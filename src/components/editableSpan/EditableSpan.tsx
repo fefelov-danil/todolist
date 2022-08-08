@@ -5,12 +5,15 @@ type EditAbleSpanPropsType = {
     classes?: string
     title: string
     updateTitle: (newTitle: string) => void
+    disabled: boolean
 }
 
 export const EditableSpan = React.memo((props: EditAbleSpanPropsType) => {
     const [editMode, setEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState<string>(props.title)
-    const onEditMode = () => setEditMode(true)
+    const onEditMode = () => {
+        !props.disabled && setEditMode(true)
+    }
     const offEditMode = () => {
         setEditMode(false)
         props.updateTitle(title)

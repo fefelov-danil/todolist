@@ -4,7 +4,7 @@ import {AddCircleOutline} from "@mui/icons-material";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
-    disabled: boolean
+    disabled?: boolean
 }
 
 export const AddItemForm = React.memo( (props: AddItemFormPropsType) => {

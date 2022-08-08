@@ -1,10 +1,17 @@
-import {addTaskAC, changeTaskAC, removeTaskAC, setTasksAC, tasksReducer, TasksStateType} from './tasks-reducer';
+import {
+    addTaskAC,
+    changeTaskAC,
+    changeTaskEntityStatusAC,
+    removeTaskAC,
+    setTasksAC,
+    tasksReducer,
+    TasksStateType
+} from './tasks-reducer';
 import {addTodolistAC, removeTodoListAC, setTodoListsAC} from "./todolist-reducer";
 import {TaskPriorities, TaskStatuses, TaskType, TodoListType} from "api/todoListsAPI";
 
 let startState: TasksStateType
 let initialState: TasksStateType
-let tasks: Array<TaskType>
 let task: TaskType
 let todoLists: Array<TodoListType>
 let todolist: TodoListType
@@ -22,7 +29,8 @@ beforeEach(() => {
                 deadline: '',
                 startDate: '',
                 description: '',
-                priority: TaskPriorities.Middle
+                priority: TaskPriorities.Middle,
+                entityStatus: "idle"
             },
             {
                 id: "2",
@@ -34,7 +42,8 @@ beforeEach(() => {
                 deadline: '',
                 startDate: '',
                 description: '',
-                priority: TaskPriorities.Middle
+                priority: TaskPriorities.Middle,
+                entityStatus: "idle"
             },
             {
                 id: "3",
@@ -46,7 +55,8 @@ beforeEach(() => {
                 deadline: '',
                 startDate: '',
                 description: '',
-                priority: TaskPriorities.Middle
+                priority: TaskPriorities.Middle,
+                entityStatus: "idle"
             }
         ],
         "todolistId2": [
@@ -60,7 +70,8 @@ beforeEach(() => {
                 deadline: '',
                 startDate: '',
                 description: '',
-                priority: TaskPriorities.Middle
+                priority: TaskPriorities.Middle,
+                entityStatus: "idle"
             },
             {
                 id: "2",
@@ -72,7 +83,8 @@ beforeEach(() => {
                 deadline: '',
                 startDate: '',
                 description: '',
-                priority: TaskPriorities.Middle
+                priority: TaskPriorities.Middle,
+                entityStatus: "idle"
             },
             {
                 id: "3",
@@ -84,7 +96,8 @@ beforeEach(() => {
                 deadline: '',
                 startDate: '',
                 description: '',
-                priority: TaskPriorities.Middle
+                priority: TaskPriorities.Middle,
+                entityStatus: "idle"
             }
         ]
     };
@@ -92,44 +105,6 @@ beforeEach(() => {
         "todolistId1": [],
         "todolistId2": []
     }
-    tasks = [
-        {
-            id: "1",
-            title: "Unit tests",
-            status: TaskStatuses.New,
-            todoListId: "todolistId1",
-            order: 0,
-            addedDate: '',
-            deadline: '',
-            startDate: '',
-            description: '',
-            priority: TaskPriorities.Middle
-        },
-        {
-            id: "2",
-            title: "StoryBook",
-            status: TaskStatuses.New,
-            todoListId: "todolistId1",
-            order: 0,
-            addedDate: '',
-            deadline: '',
-            startDate: '',
-            description: '',
-            priority: TaskPriorities.Middle
-        },
-        {
-            id: "3",
-            title: "Redux Toolkit",
-            status: TaskStatuses.New,
-            todoListId: "todolistId1",
-            order: 0,
-            addedDate: '',
-            deadline: '',
-            startDate: '',
-            description: '',
-            priority: TaskPriorities.Middle
-        }
-    ]
     task = {
         id: "0",
         title: "New task",
@@ -161,13 +136,13 @@ test('Add empty tasks to the correct todolist', () => {
     expect(endState['todolistId4']).toBeUndefined()
 })
 test('Get a list of tasks in the correct todolist', () => {
-    const action = setTasksAC(tasks, 'todolistId1')
+    const action = setTasksAC(startState['todolistId1'], 'todolistId1')
 
     const endState = tasksReducer(initialState, action)
 
     expect(endState['todolistId2'].length).toBe(0)
     expect(endState['todolistId1'].length).toBe(3)
-    expect(endState['todolistId1'][0].title).toBe("Unit tests")
+    expect(endState['todolistId1'][0].title).toBe("CSS")
     expect(endState['todolistId1'][2].id).toBe("3")
     expect(endState['todolistId1'][4]).toBeUndefined()
 });
@@ -192,7 +167,17 @@ test('correct task should be added to correct array', () => {
     expect(endState["todolistId2"].length).toBe(4);
     expect(endState["todolistId2"][0].id).toBe('0');
     expect(endState["todolistId2"][0].title).toBe("New task");
-    expect(endState["todolistId2"][0].status).toBe(TaskStatuses.New);
+    expect(endState["todolistId2"][0].status).toBe(TaskStatuses.Completed);
+})
+test('task entity status should be changed', () => {
+    const action = changeTaskEntityStatusAC('todolistId1', '1', 'loading')
+
+    const endState = tasksReducer(startState, action)
+
+    expect(endState['todolistId1'].length).toBe(3)
+    expect(endState['todolistId2'].length).toBe(3)
+    expect(endState['todolistId1'][0].entityStatus).toBe('loading')
+    expect(endState['todolistId2'][0].entityStatus).toBe('idle')
 })
 test('status and title of specified task should be changed', () => {
     task.id = '1'

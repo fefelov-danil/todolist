@@ -1,5 +1,6 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {RequestStatusType} from "app/app-reducer";
+import {string} from "prop-types";
 
 
 const instance = axios.create({
@@ -85,6 +86,7 @@ export type TaskType = {
     title: string
     todoListId: string
 }
+export type TaskDomainType = TaskType & {entityStatus: RequestStatusType}
 export type UpdateTaskModelType = {
     title: string
     description: string
