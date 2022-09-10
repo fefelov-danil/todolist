@@ -11,7 +11,8 @@ let initialState : appReducerStateType
 beforeEach(() => {
     initialState = {
         appStatus: 'idle' as RequestStatusType,
-        appError: null as null | string
+        appError: null as null | string,
+        isAuthLoading: false as boolean
     }
 })
 

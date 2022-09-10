@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect} from 'react';
 import {AddItemForm} from "components/addItemForm/AddItemForm";
 import {EditableSpan} from "components/editableSpan/EditableSpan";
-import {addTaskTC, fetchTasksTC} from "reducers/tasks-reducer";
-import {changeTodoListFilterAC, changeTodolistTC, removeTodolistTC} from "reducers/todolist-reducer";
-import {Task} from "components/todolist/task/Task";
+import {addTaskTC, fetchTasksTC} from "components/todolists/reducers/tasks-reducer";
+import {changeTodoListFilterAC, changeTodolistTC, removeTodolistTC} from "components/todolists/reducers/todolist-reducer";
+import {Task} from "components/todolists/todolist/task/Task";
 import {FilterValuesType, TaskStatuses} from "api/todoListsAPI";
 import {useAppDispatch, useAppSelector} from "hooks/hooks";
 import IconButton from '@mui/material/IconButton/IconButton';
@@ -21,6 +21,14 @@ type TodoListPropsType = {
 export const TodoList = React.memo( (props: TodoListPropsType) => {
     const dispatch = useAppDispatch()
     const tasks = useAppSelector(state => state.tasks[props.todoListID])
+    const isVerifyLogin = useAppSelector(state => state.login.isVerifyLogin)
+
+    useEffect(() => {
+        if(isVerifyLogin) {
+            dispatch(fetchTasksTC(props.todoListID))
+        }
+    }, [isVerifyLogin])
+
 
     const removeTodoList = useCallback( () => {
         dispatch(removeTodolistTC(props.todoListID))
@@ -53,10 +61,6 @@ export const TodoList = React.memo( (props: TodoListPropsType) => {
             task={t}/>
         )
         : <span>List is empty</span>
-
-    useEffect(() => {
-        dispatch(fetchTasksTC(props.todoListID))
-    }, [])
 
     return (
         <div>
