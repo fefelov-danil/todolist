@@ -16,7 +16,7 @@ export type RootReducerType  = ReturnType<typeof rootReducer>
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = ThunkDispatch<RootState, unknown, AnyAction>
+export type AppDispatch = ThunkDispatch<RootState, unknown, AllActionsType>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AllActionsType>
 
 export type AllActionsType = AppActionsType | TodoListsActionsType | TasksActionsType | loginActionsType
