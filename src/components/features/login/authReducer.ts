@@ -1,15 +1,15 @@
 import {Dispatch} from "redux";
 import {AllActionsType} from "app/store";
 import {authAPI, AuthValues} from "api/authAPI";
-import {setAppAuthLoadingAC} from "app/app-reducer";
+import {setAppAuthLoadingAC, setAppErrorAC, setAppStatusAC} from "app/app-reducer";
 import {handleServerNetworkAppError} from "utils/error-utils";
 
-const initialState: stateType = {
+const initialState = {
     isLoggedIn: false,
     isVerifyLogin: false
 }
 
-export const authReducer = (state: stateType = initialState, action: loginActionsType) => {
+export const authReducer = (state: StateType = initialState, action: LoginActionsType) => {
     switch (action.type) {
         case "login/LOGIN":
             return {...state, isLoggedIn: action.isLoggedIn}
@@ -26,12 +26,21 @@ export const verifyLoginAC = (isVerifyLogin: boolean) => ({type: 'login/VERIFY-L
 
 // Thunks
 export const loginTC = (values: AuthValues) => (dispatch: Dispatch<AllActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
     authAPI.login(values)
         .then((res) => {
             if (res.data.resultCode === 0) {
                 dispatch(loginAC(true))
                 dispatch(verifyLoginAC(true))
+            } else {
+                dispatch(setAppErrorAC(res.data.messages[0]))
             }
+        })
+        .catch(error => {
+            handleServerNetworkAppError(dispatch, error)
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC('idle'))
         })
 }
 export const verifyLoginTC = () => (dispatch: Dispatch<AllActionsType>) => {
@@ -49,6 +58,7 @@ export const verifyLoginTC = () => (dispatch: Dispatch<AllActionsType>) => {
         })
 }
 export const logoutTC = () => (dispatch: Dispatch<AllActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
     authAPI.logout()
         .then((res) => {
             if(res.data.resultCode === 0) {
@@ -58,15 +68,14 @@ export const logoutTC = () => (dispatch: Dispatch<AllActionsType>) => {
         .catch((error) => {
             handleServerNetworkAppError(dispatch, error)
         })
-
+        .finally(() => {
+            dispatch(setAppStatusAC('idle'))
+        })
 }
 
 // Types
-export type loginActionsType =
+type StateType = typeof initialState
+
+export type LoginActionsType =
     | ReturnType<typeof loginAC>
     | ReturnType<typeof verifyLoginAC>
-
-type stateType = {
-    isLoggedIn: boolean
-    isVerifyLogin: boolean
-}

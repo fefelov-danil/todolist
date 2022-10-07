@@ -3,9 +3,14 @@ import 'app/App.css';
 import {fetchTodoListsTC} from "components/todolists/reducers/todolist-reducer";
 import {useAppDispatch, useAppSelector} from "hooks/hooks";
 import LinearProgress from "@mui/material/LinearProgress";
-import {AppBar, Button, CircularProgress, IconButton, Toolbar, Typography} from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import {Menu} from "@mui/icons-material";
-import ErrorSnackbar from "components/errorSnackbar/ErrorSnackbar";
+import Button from '@mui/material/Button';
+import {ErrorSnackbar} from "components/errorSnackbar/ErrorSnackbar";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {PageNotFound} from "components/404/PageNotFound";
 import {TodoLists} from "components/todolists/TodoLists";
@@ -22,11 +27,7 @@ export function App() {
     useEffect(() => {
         if(!isVerifyLogin) {
             dispatch(verifyLoginTC())
-        }
-    }, [isVerifyLogin])
-
-    useEffect(() => {
-        if (isVerifyLogin) {
+        } else {
             dispatch(fetchTodoListsTC())
         }
     }, [isVerifyLogin])
