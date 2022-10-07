@@ -16,7 +16,7 @@ import {
 } from "api/todoListsAPI";
 import {Dispatch} from "redux";
 import {AllActionsType, RootReducerType} from "app/store";
-import {AppActionsType, RequestStatusType, setAppErrorAC, setAppStatusAC} from "app/app-reducer";
+import {AppActionsType, RequestStatusType, setAppStatusAC} from "app/app-reducer";
 import {handleServerAppError, handleServerNetworkAppError} from "utils/error-utils";
 
 const initialState: TasksStateType = {}

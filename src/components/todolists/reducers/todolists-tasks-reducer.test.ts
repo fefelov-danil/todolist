@@ -1,4 +1,4 @@
-import {TaskType, TodolistDomainType, TodoListType} from "api/todoListsAPI";
+import {TodolistDomainType, TodoListType} from "api/todoListsAPI";
 import {addTodolistAC, todoListsReducer} from "components/todolists/reducers/todolist-reducer";
 import {tasksReducer, TasksStateType} from "components/todolists/reducers/tasks-reducer";
 

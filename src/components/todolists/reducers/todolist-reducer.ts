@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {FilterValuesType, ResultCode, TodolistDomainType, todoListsAPI, TodoListType} from "api/todoListsAPI";
-import {AppActionsType, RequestStatusType, setAppErrorAC, setAppStatusAC,} from "app/app-reducer";
+import {AppActionsType, RequestStatusType, setAppStatusAC,} from "app/app-reducer";
 import {handleServerAppError, handleServerNetworkAppError} from "utils/error-utils";
 import {AllActionsType} from "app/store";
 

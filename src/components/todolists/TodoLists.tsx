@@ -1,14 +1,13 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import {Container, Grid, Paper} from "@mui/material";
 import {AddItemForm} from "components/addItemForm/AddItemForm";
-import {addTodolistTC, fetchTodoListsTC} from "components/todolists/reducers/todolist-reducer";
+import {addTodolistTC} from "components/todolists/reducers/todolist-reducer";
 import {TodoList} from "components/todolists/todolist/TodoList";
 import {useAppDispatch, useAppSelector} from "hooks/hooks";
 
 export const TodoLists = () => {
     const dispatch = useAppDispatch()
     const todoLists = useAppSelector(state => state.todoLists)
-    const isVerifyLogin = useAppSelector(state => state.login.isVerifyLogin)
 
     const addTodoList = useCallback ((title: string) => {
         dispatch(addTodolistTC(title))

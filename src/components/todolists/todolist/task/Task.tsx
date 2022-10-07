@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useCallback} from 'react';
 import {EditableSpan} from "components/editableSpan/EditableSpan";
 import {removeTaskTC, updateTaskTC} from "components/todolists/reducers/tasks-reducer";
-import {TaskDomainType, TaskStatuses, TaskType} from "api/todoListsAPI";
+import {TaskDomainType, TaskStatuses} from "api/todoListsAPI";
 import {useAppDispatch} from "hooks/hooks";
 import {Checkbox, ListItem} from "@mui/material";
 import IconButton from "@mui/material/IconButton/IconButton";
