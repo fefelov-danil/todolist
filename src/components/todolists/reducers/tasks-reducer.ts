@@ -27,7 +27,9 @@ const slice = createSlice({
             state[action.payload.todolistId] = action.payload.tasks.map(t => ({...t, entityStatus: 'idle'}))
         },
         removeTaskAC(state, action: PayloadAction<{ todolistId: string, taskId: string }>) {
-            state[action.payload.todolistId] = state[action.payload.todolistId].filter(t => t.id !== action.payload.taskId)
+            const tasks = state[action.payload.todolistId]
+            const index = tasks.findIndex(t => t.id === action.payload.taskId)
+            tasks.splice(index, 1)
         },
         addTaskAC(state, action: PayloadAction<{ task: TaskType }>) {
             state[action.payload.task.todoListId].unshift({...action.payload.task, entityStatus: 'idle'})
@@ -37,8 +39,9 @@ const slice = createSlice({
                 .map(t => t.id === action.payload.taskId ? {...t, entityStatus: action.payload.entityStatus} : t)
         },
         changeTaskAC(state, action: PayloadAction<{ task: TaskType }>) {
-            state[action.payload.task.todoListId] = state[action.payload.task.todoListId]
-                .map(t => t.id === action.payload.task.id ? {...action.payload.task, entityStatus: 'idle'} : t)
+            const tasks = state[action.payload.task.todoListId]
+            const index = tasks.findIndex(t => t.id === action.payload.task.id)
+            tasks[index] = {...action.payload.task, entityStatus: 'idle'}
         }
     },
     extraReducers: (builder) => {
