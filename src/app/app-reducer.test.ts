@@ -17,7 +17,7 @@ beforeEach(() => {
 })
 
 test('change app status', () => {
-    const action = setAppStatusAC( {appStatus: 'loading'} )
+    const action = setAppStatusAC('loading')
 
     const endState = appReducer(initialState, action)
 

@@ -12,14 +12,14 @@ const slice = createSlice({
     name: 'app',
     initialState: initialState,
     reducers: {
-        setAppStatusAC(state, action: PayloadAction<{ appStatus: RequestStatusType }>) {
-            state.appStatus = action.payload.appStatus
+        setAppStatusAC(state, action: PayloadAction<RequestStatusType>) {
+            state.appStatus = action.payload
         },
         setAppErrorAC(state, action: PayloadAction<{ appError: null | string }>) {
             state.appError = action.payload.appError
         },
-        setAppAuthLoadingAC(state, action: PayloadAction<{ isAuthLoading: boolean }>) {
-            state.isAuthLoading = action.payload.isAuthLoading
+        setAppAuthLoadingAC(state, action: PayloadAction<boolean>) {
+            state.isAuthLoading = action.payload
         }
     }
 })

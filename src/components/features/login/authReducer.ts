@@ -13,11 +13,11 @@ const slice = createSlice({
     name: 'auth',
     initialState: initialState,
     reducers: {
-        loginAC(state, action: PayloadAction<{ isLoggedIn: boolean }>) {
-            state.isLoggedIn = action.payload.isLoggedIn
+        loginAC(state, action: PayloadAction<boolean>) {
+            state.isLoggedIn = action.payload
         },
-        verifyLoginAC(state, action: PayloadAction<{ isVerifyLogin: boolean }>) {
-            state.isVerifyLogin = action.payload.isVerifyLogin
+        verifyLoginAC(state, action: PayloadAction<boolean>) {
+            state.isVerifyLogin = action.payload
         }
     }
 })
@@ -27,12 +27,12 @@ export const authReducer = slice.reducer
 
 // Thunks
 export const loginTC = (values: AuthValues) => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC({appStatus: 'loading'}))
+    dispatch(setAppStatusAC('loading'))
     authAPI.login(values)
         .then((res) => {
             if (res.data.resultCode === 0) {
-                dispatch(loginAC({isLoggedIn: true}))
-                dispatch(verifyLoginAC({isVerifyLogin: true}))
+                dispatch(loginAC(true))
+                dispatch(verifyLoginAC(true))
             } else {
                 dispatch(setAppErrorAC({appError: res.data.messages[0]}))
             }
@@ -41,35 +41,35 @@ export const loginTC = (values: AuthValues) => (dispatch: Dispatch) => {
             handleServerNetworkAppError(dispatch, error)
         })
         .finally(() => {
-            dispatch(setAppStatusAC({appStatus: 'idle'}))
+            dispatch(setAppStatusAC('idle'))
         })
 }
 export const verifyLoginTC = () => (dispatch: Dispatch) => {
-    dispatch(setAppAuthLoadingAC({isAuthLoading: true}))
+    dispatch(setAppAuthLoadingAC(true))
     authAPI.verifyLogin()
         .then((res) => {
             if (res.data.resultCode === 0) {
-                dispatch(verifyLoginAC({isVerifyLogin: true}))
+                dispatch(verifyLoginAC(true))
             } else {
-                dispatch(verifyLoginAC({isVerifyLogin: false}))
+                dispatch(verifyLoginAC(false))
             }
         })
         .finally(() => {
-            dispatch(setAppAuthLoadingAC({isAuthLoading: false}))
+            dispatch(setAppAuthLoadingAC(false))
         })
 }
 export const logoutTC = () => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC({appStatus: 'loading'}))
+    dispatch(setAppStatusAC('loading'))
     authAPI.logout()
         .then((res) => {
             if(res.data.resultCode === 0) {
-                dispatch(verifyLoginAC({isVerifyLogin: false}))
+                dispatch(verifyLoginAC(false))
             }
         })
         .catch((error) => {
             handleServerNetworkAppError(dispatch, error)
         })
         .finally(() => {
-            dispatch(setAppStatusAC({appStatus: 'idle'}))
+            dispatch(setAppStatusAC('idle'))
         })
 }

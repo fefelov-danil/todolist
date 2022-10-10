@@ -9,10 +9,10 @@ export const handleServerAppError = <T>(dispatch: Dispatch, response: ResponseTy
     } else {
         dispatch(setAppErrorAC( {appError: 'Some error occurred'} ))
     }
-    dispatch(setAppStatusAC( {appStatus: 'failed'} ))
+    dispatch(setAppStatusAC('failed'))
 }
 
 export const handleServerNetworkAppError = (dispatch: Dispatch, error: AxiosError) => {
     dispatch(setAppErrorAC( { appError: error.message} ))
-    dispatch(setAppStatusAC({ appStatus: 'failed'} ))
+    dispatch(setAppStatusAC('failed'))
 }

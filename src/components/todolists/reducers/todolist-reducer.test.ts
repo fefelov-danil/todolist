@@ -29,7 +29,7 @@ beforeEach(() => {
 })
 
 test('Add todoLists to initial state', () => {
-    const action = setTodoListsAC( {todoLists} )
+    const action = setTodoListsAC(todoLists)
 
     const endState = todoListsReducer(initialState, action)
 
@@ -39,7 +39,7 @@ test('Add todoLists to initial state', () => {
     expect(endState[3]).toBeUndefined()
 })
 test('Deleting a todoList', () => {
-    const action = removeTodoListAC( {todolistId: 'todolistId2'} )
+    const action = removeTodoListAC('todolistId2')
 
     const endState = todoListsReducer(startState, action)
 
@@ -49,7 +49,7 @@ test('Deleting a todoList', () => {
     expect(endState[2]).toBeUndefined()
 })
 test('Adding a todoList', () => {
-    const action = addTodolistAC( {todolist} )
+    const action = addTodolistAC( todolist)
 
     const endState = todoListsReducer(startState, action)
 

@@ -126,7 +126,7 @@ beforeEach(() => {
 })
 
 test('Add empty tasks to the correct todolist', () => {
-    const action = setTodoListsAC( {todoLists} )
+    const action = setTodoListsAC(todoLists)
 
     const endState = tasksReducer({}, action)
 
@@ -159,7 +159,7 @@ test('correct task should be deleted from correct array', () => {
 
 });
 test('correct task should be added to correct array', () => {
-    const action = addTaskAC( {task} );
+    const action = addTaskAC(task);
 
     const endState = tasksReducer(startState, action)
 
@@ -181,7 +181,7 @@ test('task entity status should be changed', () => {
 })
 test('status and title of specified task should be changed', () => {
     task.id = '1'
-    const action = changeTaskAC( {task} )
+    const action = changeTaskAC(task)
 
     const endState = tasksReducer(startState, action)
 
@@ -192,7 +192,7 @@ test('status and title of specified task should be changed', () => {
     expect(endState['todolistId2'][0].status).toBe(TaskStatuses.Completed)
 });
 test('Add empty array to new todoList', () => {
-    const action = addTodolistAC({todolist})
+    const action = addTodolistAC(todolist)
 
     const endState = tasksReducer(startState, action)
 
@@ -200,7 +200,7 @@ test('Add empty array to new todoList', () => {
     expect(endState['todolistId2'][0].title).toBe('bread')
 })
 test('property with todolistId should be deleted', () => {
-    const action = removeTodoListAC({todolistId: "todolistId2"});
+    const action = removeTodoListAC("todolistId2");
 
     const endState = tasksReducer(startState, action)
 
