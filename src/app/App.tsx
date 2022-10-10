@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import 'app/App.css';
 import {fetchTodoListsTC} from "components/todolists/reducers/todolist-reducer";
-import {useAppDispatch, useAppSelector} from "hooks/hooks";
+import {useAppDispatch, useAppSelector} from "app/hooks";
 import LinearProgress from "@mui/material/LinearProgress";
 import CircularProgress from "@mui/material/CircularProgress";
 import AppBar from '@mui/material/AppBar';

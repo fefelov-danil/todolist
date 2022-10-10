@@ -5,7 +5,7 @@ import {addTaskTC, fetchTasksTC} from "components/todolists/reducers/tasks-reduc
 import {changeTodoListFilterAC, changeTodolistTC, removeTodolistTC} from "components/todolists/reducers/todolist-reducer";
 import {Task} from "components/todolists/todolist/task/Task";
 import {FilterValuesType, TaskStatuses} from "api/todoListsAPI";
-import {useAppDispatch, useAppSelector} from "hooks/hooks";
+import {useAppDispatch, useAppSelector} from "app/hooks";
 import IconButton from '@mui/material/IconButton/IconButton';
 import {DeleteOutline} from "@mui/icons-material";
 import {Button, List} from "@mui/material";

@@ -3,7 +3,7 @@ import {Container, Grid, Paper} from "@mui/material";
 import {AddItemForm} from "components/addItemForm/AddItemForm";
 import {addTodolistTC} from "components/todolists/reducers/todolist-reducer";
 import {TodoList} from "components/todolists/todolist/TodoList";
-import {useAppDispatch, useAppSelector} from "hooks/hooks";
+import {useAppDispatch, useAppSelector} from "app/hooks";
 
 export const TodoLists = () => {
     const dispatch = useAppDispatch()
