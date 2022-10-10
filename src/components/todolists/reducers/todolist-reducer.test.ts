@@ -29,7 +29,7 @@ beforeEach(() => {
 })
 
 test('Add todoLists to initial state', () => {
-    const action = setTodoListsAC(todoLists)
+    const action = setTodoListsAC( {todoLists} )
 
     const endState = todoListsReducer(initialState, action)
 
@@ -39,7 +39,7 @@ test('Add todoLists to initial state', () => {
     expect(endState[3]).toBeUndefined()
 })
 test('Deleting a todoList', () => {
-    const action = removeTodoListAC('todolistId2')
+    const action = removeTodoListAC( {todolistId: 'todolistId2'} )
 
     const endState = todoListsReducer(startState, action)
 
@@ -49,7 +49,7 @@ test('Deleting a todoList', () => {
     expect(endState[2]).toBeUndefined()
 })
 test('Adding a todoList', () => {
-    const action = addTodolistAC(todolist)
+    const action = addTodolistAC( {todolist} )
 
     const endState = todoListsReducer(startState, action)
 
@@ -58,7 +58,7 @@ test('Adding a todoList', () => {
     expect(endState[1].id).toBe('todolistId1')
 })
 test('Change todoList title', () => {
-    const action = changeTodoListTitleAC('todolistId3', 'New title')
+    const action = changeTodoListTitleAC({id: 'todolistId3', title: 'New title'})
 
     const endState = todoListsReducer(startState, action)
 
@@ -68,7 +68,7 @@ test('Change todoList title', () => {
     expect(endState[1].title).toBe('Todo2')
 })
 test('Change todoList filter', () => {
-    const action = changeTodoListFilterAC('todolistId1', 'active')
+    const action = changeTodoListFilterAC( {id: 'todolistId1', filter: 'active'} )
 
     const endState = todoListsReducer(startState, action)
 
@@ -78,7 +78,7 @@ test('Change todoList filter', () => {
     expect(endState[2].filter).toBe('all')
 })
 test('Change todoList entity status', () => {
-    const action = changeTodoListEntityStatusAC('todolistId1', 'succeeded')
+    const action = changeTodoListEntityStatusAC( {id: 'todolistId1', entityStatus: 'succeeded'} )
 
     const endState = todoListsReducer(startState, action)
 

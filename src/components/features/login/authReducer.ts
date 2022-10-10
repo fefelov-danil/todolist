@@ -1,81 +1,75 @@
 import {Dispatch} from "redux";
-import {AllActionsType} from "app/store";
 import {authAPI, AuthValues} from "api/authAPI";
 import {setAppAuthLoadingAC, setAppErrorAC, setAppStatusAC} from "app/app-reducer";
 import {handleServerNetworkAppError} from "utils/error-utils";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState = {
     isLoggedIn: false,
     isVerifyLogin: false
 }
 
-export const authReducer = (state: StateType = initialState, action: LoginActionsType) => {
-    switch (action.type) {
-        case "login/LOGIN":
-            return {...state, isLoggedIn: action.isLoggedIn}
-        case "login/VERIFY-LOGIN":
-            return {...state, isVerifyLogin: action.isVerifyLogin}
-        default:
-            return state
+const slice = createSlice({
+    name: 'auth',
+    initialState: initialState,
+    reducers: {
+        loginAC(state, action: PayloadAction<{ isLoggedIn: boolean }>) {
+            state.isLoggedIn = action.payload.isLoggedIn
+        },
+        verifyLoginAC(state, action: PayloadAction<{ isVerifyLogin: boolean }>) {
+            state.isVerifyLogin = action.payload.isVerifyLogin
+        }
     }
-}
+})
 
-// Actions
-export const loginAC = (isLoggedIn: boolean) => ({type: 'login/LOGIN', isLoggedIn} as const)
-export const verifyLoginAC = (isVerifyLogin: boolean) => ({type: 'login/VERIFY-LOGIN', isVerifyLogin} as const)
+export const {loginAC, verifyLoginAC} = slice.actions
+export const authReducer = slice.reducer
 
 // Thunks
-export const loginTC = (values: AuthValues) => (dispatch: Dispatch<AllActionsType>) => {
-    dispatch(setAppStatusAC('loading'))
+export const loginTC = (values: AuthValues) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC({appStatus: 'loading'}))
     authAPI.login(values)
         .then((res) => {
             if (res.data.resultCode === 0) {
-                dispatch(loginAC(true))
-                dispatch(verifyLoginAC(true))
+                dispatch(loginAC({isLoggedIn: true}))
+                dispatch(verifyLoginAC({isVerifyLogin: true}))
             } else {
-                dispatch(setAppErrorAC(res.data.messages[0]))
+                dispatch(setAppErrorAC({appError: res.data.messages[0]}))
             }
         })
         .catch(error => {
             handleServerNetworkAppError(dispatch, error)
         })
         .finally(() => {
-            dispatch(setAppStatusAC('idle'))
+            dispatch(setAppStatusAC({appStatus: 'idle'}))
         })
 }
-export const verifyLoginTC = () => (dispatch: Dispatch<AllActionsType>) => {
-    dispatch(setAppAuthLoadingAC(true))
+export const verifyLoginTC = () => (dispatch: Dispatch) => {
+    dispatch(setAppAuthLoadingAC({isAuthLoading: true}))
     authAPI.verifyLogin()
         .then((res) => {
             if (res.data.resultCode === 0) {
-                dispatch(verifyLoginAC(true))
+                dispatch(verifyLoginAC({isVerifyLogin: true}))
             } else {
-                dispatch(verifyLoginAC(false))
+                dispatch(verifyLoginAC({isVerifyLogin: false}))
             }
         })
         .finally(() => {
-            dispatch(setAppAuthLoadingAC(false))
+            dispatch(setAppAuthLoadingAC({isAuthLoading: false}))
         })
 }
-export const logoutTC = () => (dispatch: Dispatch<AllActionsType>) => {
-    dispatch(setAppStatusAC('loading'))
+export const logoutTC = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC({appStatus: 'loading'}))
     authAPI.logout()
         .then((res) => {
             if(res.data.resultCode === 0) {
-                dispatch(verifyLoginAC(false))
+                dispatch(verifyLoginAC({isVerifyLogin: false}))
             }
         })
         .catch((error) => {
             handleServerNetworkAppError(dispatch, error)
         })
         .finally(() => {
-            dispatch(setAppStatusAC('idle'))
+            dispatch(setAppStatusAC({appStatus: 'idle'}))
         })
 }
-
-// Types
-type StateType = typeof initialState
-
-export type LoginActionsType =
-    | ReturnType<typeof loginAC>
-    | ReturnType<typeof verifyLoginAC>

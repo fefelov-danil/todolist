@@ -126,7 +126,7 @@ beforeEach(() => {
 })
 
 test('Add empty tasks to the correct todolist', () => {
-    const action = setTodoListsAC(todoLists)
+    const action = setTodoListsAC( {todoLists} )
 
     const endState = tasksReducer({}, action)
 
@@ -136,7 +136,7 @@ test('Add empty tasks to the correct todolist', () => {
     expect(endState['todolistId4']).toBeUndefined()
 })
 test('Get a list of tasks in the correct todolist', () => {
-    const action = setTasksAC(startState['todolistId1'], 'todolistId1')
+    const action = setTasksAC( {tasks: startState['todolistId1'], todolistId: 'todolistId1'} )
 
     const endState = tasksReducer(initialState, action)
 
@@ -147,7 +147,7 @@ test('Get a list of tasks in the correct todolist', () => {
     expect(endState['todolistId1'][4]).toBeUndefined()
 });
 test('correct task should be deleted from correct array', () => {
-    const action = removeTaskAC("todolistId2", "2");
+    const action = removeTaskAC( {todolistId: "todolistId2", taskId: "2"} );
 
     const endState = tasksReducer(startState, action)
 
@@ -159,7 +159,7 @@ test('correct task should be deleted from correct array', () => {
 
 });
 test('correct task should be added to correct array', () => {
-    const action = addTaskAC(task);
+    const action = addTaskAC( {task} );
 
     const endState = tasksReducer(startState, action)
 
@@ -170,7 +170,7 @@ test('correct task should be added to correct array', () => {
     expect(endState["todolistId2"][0].status).toBe(TaskStatuses.Completed);
 })
 test('task entity status should be changed', () => {
-    const action = changeTaskEntityStatusAC('todolistId1', '1', 'loading')
+    const action = changeTaskEntityStatusAC( {todolistId: 'todolistId1', taskId: '1', entityStatus: 'loading'} )
 
     const endState = tasksReducer(startState, action)
 
@@ -181,7 +181,7 @@ test('task entity status should be changed', () => {
 })
 test('status and title of specified task should be changed', () => {
     task.id = '1'
-    const action = changeTaskAC(task)
+    const action = changeTaskAC( {task} )
 
     const endState = tasksReducer(startState, action)
 
@@ -192,7 +192,7 @@ test('status and title of specified task should be changed', () => {
     expect(endState['todolistId2'][0].status).toBe(TaskStatuses.Completed)
 });
 test('Add empty array to new todoList', () => {
-    const action = addTodolistAC(todolist)
+    const action = addTodolistAC({todolist})
 
     const endState = tasksReducer(startState, action)
 
@@ -200,7 +200,7 @@ test('Add empty array to new todoList', () => {
     expect(endState['todolistId2'][0].title).toBe('bread')
 })
 test('property with todolistId should be deleted', () => {
-    const action = removeTodoListAC("todolistId2");
+    const action = removeTodoListAC({todolistId: "todolistId2"});
 
     const endState = tasksReducer(startState, action)
 

@@ -17,7 +17,7 @@ beforeEach(() => {
 })
 
 test('change app status', () => {
-    const action = setAppStatusAC('loading')
+    const action = setAppStatusAC( {appStatus: 'loading'} )
 
     const endState = appReducer(initialState, action)
 
@@ -25,7 +25,7 @@ test('change app status', () => {
     expect(endState.appError).toBe(null)
 })
 test('change app error', () => {
-    const action = setAppErrorAC('Some Error')
+    const action = setAppErrorAC( {appError: 'Some Error'} )
 
     const endState = appReducer(initialState, action)
 

@@ -1,3 +1,5 @@
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
@@ -6,27 +8,24 @@ const initialState = {
     isAuthLoading: true as boolean
 }
 
-export const appReducer = (state: appReducerStateType = initialState, action: AppActionsType): appReducerStateType => {
-    switch (action.type) {
-        case "SET-STATUS":
-            return {...state, appStatus: action.appStatus}
-        case "SET-ERROR":
-            return {...state, appError: action.appError}
-        case "SET-AUTH-LOADING":
-            return {...state, isAuthLoading: action.isAuthLoading}
-        default:
-            return state
+const slice = createSlice({
+    name: 'app',
+    initialState: initialState,
+    reducers: {
+        setAppStatusAC(state, action: PayloadAction<{ appStatus: RequestStatusType }>) {
+            state.appStatus = action.payload.appStatus
+        },
+        setAppErrorAC(state, action: PayloadAction<{ appError: null | string }>) {
+            state.appError = action.payload.appError
+        },
+        setAppAuthLoadingAC(state, action: PayloadAction<{ isAuthLoading: boolean }>) {
+            state.isAuthLoading = action.payload.isAuthLoading
+        }
     }
-}
+})
 
-// Actions
-export const setAppStatusAC = (appStatus: RequestStatusType) => ({type: 'SET-STATUS', appStatus} as const)
-export const setAppErrorAC = (appError: null | string) => ({type: 'SET-ERROR', appError} as const)
-export const setAppAuthLoadingAC = (isAuthLoading: boolean) => ({type: 'SET-AUTH-LOADING', isAuthLoading} as const)
+export const {setAppStatusAC, setAppErrorAC, setAppAuthLoadingAC} = slice.actions
+export const appReducer = slice.reducer
 
 // types
 export type appReducerStateType = typeof initialState
-export type AppActionsType =
-    | ReturnType<typeof setAppStatusAC>
-    | ReturnType<typeof setAppErrorAC>
-    | ReturnType<typeof setAppAuthLoadingAC>
