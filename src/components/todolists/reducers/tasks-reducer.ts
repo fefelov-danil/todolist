@@ -8,7 +8,7 @@ import {
     TaskPriorities,
     TaskStatuses,
     TaskType,
-    todoListsAPI, TodoListType,
+    todoListsAPI,
     UpdateTaskModelType
 } from "api/todoListsAPI";
 import {Dispatch} from "redux";
@@ -45,13 +45,13 @@ const slice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(setTodoListsAC, (state, action: PayloadAction<{ todoLists: Array<TodoListType> }>) => {
+        builder.addCase(setTodoListsAC, (state, action) => {
             action.payload.todoLists.forEach(tl => state[tl.id] = [])
         })
-        builder.addCase(addTodolistAC, (state, action: PayloadAction<{ todolist: TodoListType }>) => {
+        builder.addCase(addTodolistAC, (state, action) => {
             state[action.payload.todolist.id] = []
         })
-        builder.addCase(removeTodoListAC, (state, action: PayloadAction<{ todolistId: string }>) => {
+        builder.addCase(removeTodoListAC, (state, action) => {
             delete state[action.payload.todolistId]
         })
     }
