@@ -15,7 +15,7 @@ const slice = createSlice({
         },
         removeTodoListAC(state, action: PayloadAction<string>) {
             const index = state.findIndex(tl => tl.id === action.payload)
-            if (index > -1) state.splice(index, 1)
+            state.splice(index, 1)
         },
         addTodolistAC(state, action: PayloadAction<TodoListType>) {
             state.unshift({...action.payload, filter: 'all', entityStatus: "idle"})

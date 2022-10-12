@@ -12,7 +12,7 @@ export const handleServerAppError = <T>(dispatch: Dispatch, response: ResponseTy
     dispatch(setAppStatusAC('failed'))
 }
 
-export const handleServerNetworkAppError = (dispatch: Dispatch, error: AxiosError) => {
+export const handleServerNetworkAppError = (dispatch: Dispatch, error: Error | AxiosError<{ error: string }>) => {
     dispatch(setAppErrorAC( { appError: error.message} ))
     dispatch(setAppStatusAC('failed'))
 }

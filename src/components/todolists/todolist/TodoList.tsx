@@ -43,7 +43,7 @@ export const TodoList = React.memo( (props: TodoListPropsType) => {
     }, [props.todoListID])
 
     const addTask = useCallback((title: string) => {
-        dispatch(addTaskTC(props.todoListID, title))
+        dispatch(addTaskTC({todolistId: props.todoListID, title}))
     }, [props.todoListID])
 
     let tasksForRender = tasks

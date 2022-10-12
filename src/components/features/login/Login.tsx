@@ -7,11 +7,17 @@ import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import {useFormik} from "formik";
+import {FormikHelpers, useFormik} from "formik";
 import {loginTC} from "components/features/login/authReducer";
 import {useAppDispatch, useAppSelector} from "app/hooks";
 import {ErrorSnackbar} from "components/errorSnackbar/ErrorSnackbar";
 import LinearProgress from "@mui/material/LinearProgress";
+
+type FormValuesType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
 
 export const Login = () => {
 
@@ -24,8 +30,9 @@ export const Login = () => {
             password: '',
             rememberMe: false,
         },
-        onSubmit: values => {
-            dispatch(loginTC(values))
+        onSubmit: async (values: FormValuesType, formikHelpers: FormikHelpers<FormValuesType>) => {
+            const res = await dispatch(loginTC(values))
+
         },
     });
 

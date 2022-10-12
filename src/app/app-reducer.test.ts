@@ -1,7 +1,7 @@
 import {
     appReducer,
     appReducerStateType,
-    RequestStatusType,
+    RequestStatusType, setAppAuthLoadingAC,
     setAppErrorAC,
     setAppStatusAC,
 } from "app/app-reducer";
@@ -31,4 +31,11 @@ test('change app error', () => {
 
     expect(endState.appError).toBe('Some Error')
     expect(endState.appStatus).toBe('idle')
+})
+test('change isAuthLoading', () => {
+    const action = setAppAuthLoadingAC(true)
+
+    const endState = appReducer(initialState, action)
+
+    expect(endState.isAuthLoading).toBe(true)
 })
