@@ -54,9 +54,13 @@ export const Login = () => {
             return errors
         },
         onSubmit: async (values: FormValuesType, formikHelpers: FormikHelpers<FormValuesType>) => {
-            const res = await dispatch(loginTC(values))
-            console.log(res)
-            formikHelpers.setFieldError('email', '1111')
+            const action = await dispatch(loginTC(values))
+            if (loginTC.rejected.match(action)) {
+                if (action.payload?.fieldsErrors?.length) {
+                    const error = action.payload.fieldsErrors[0]
+                    formikHelpers.setFieldError(error.field, error.error)
+                }
+            }
         },
     });
 
