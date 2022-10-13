@@ -15,8 +15,13 @@ export const authAPI = {
 // Types
 type AuthResponseType<D = {}> = {
     resultCode: number
-    messages: string
+    messages: string[]
+    fieldsErrors?: Array<FieldsErrorsType>
     data: D
+}
+export type FieldsErrorsType = {
+    field: string
+    error: string
 }
 type MeType = {
     userId: number
