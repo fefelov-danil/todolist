@@ -19,6 +19,12 @@ type FormValuesType = {
     rememberMe: boolean
 }
 
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
+}
+
 export const Login = () => {
 
     const dispatch = useAppDispatch()
@@ -30,9 +36,27 @@ export const Login = () => {
             password: '',
             rememberMe: false,
         },
+        validate: (values) => {
+            const errors: FormikErrorType = {}
+
+            if (!values.email) {
+                errors.email = 'required'
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address';
+            }
+
+            if (!values.password) {
+                errors.password = 'required'
+            } else if (values.password.length < 3) {
+                errors.password = 'Пароль должен быть длиннее 2х символов';
+            }
+
+            return errors
+        },
         onSubmit: async (values: FormValuesType, formikHelpers: FormikHelpers<FormValuesType>) => {
             const res = await dispatch(loginTC(values))
-
+            console.log(res)
+            formikHelpers.setFieldError('email', '1111')
         },
     });
 
@@ -61,11 +85,15 @@ export const Login = () => {
                                     label="Email"
                                     margin="normal"
                                     {...formik.getFieldProps('email')}/>
+                                {formik.touched.email && formik.errors.email &&
+                                    <div style={{color: 'red'}}>{formik.errors.email}</div>}
                                 <TextField
                                     type="password"
                                     label="Password"
                                     margin="normal"
                                     {...formik.getFieldProps('password')}/>
+                                {formik.touched.password && formik.errors.password &&
+                                    <div style={{color: 'red'}}>{formik.errors.password}</div>}
                                 <FormControlLabel label={'Remember me'} control={
                                     <Checkbox
                                         checked={formik.values.rememberMe}
