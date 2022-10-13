@@ -1,8 +1,7 @@
-import {Dispatch} from "redux";
-import {authAPI, AuthValues} from "api/authAPI";
+import {authAPI, AuthValues, FieldsErrorsType} from "api/authAPI";
 import {setAppAuthLoadingAC, setAppErrorAC, setAppStatusAC} from "app/app-reducer";
 import {handleServerNetworkAppError} from "utils/error-utils";
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
 
 
@@ -16,22 +15,28 @@ export const verifyLoginTC = createAsyncThunk('auth/verifyLogin', async (payload
         return false
     }
 })
-export const loginTC = createAsyncThunk('auth/login', async (values: AuthValues, thunkAPI) => {
+export const loginTC = createAsyncThunk<
+    {isLoggedIn: boolean}, AuthValues,
+    { rejectValue: { errors: string[]; fieldsErrors?: Array<FieldsErrorsType> } }
+    >('auth/login', async (values: AuthValues, thunkAPI) => {
     thunkAPI.dispatch(setAppStatusAC('loading'))
     try {
         const res = await authAPI.login(values)
         if (res.data.resultCode === 0) {
             thunkAPI.dispatch(verifyLoginTC.fulfilled(true, ''))
             thunkAPI.dispatch(setAppStatusAC('succeeded'))
-            return true
+            return {isLoggedIn: true}
         } else {
             thunkAPI.dispatch(setAppErrorAC({appError: res.data.messages[0]}))
+            thunkAPI.dispatch(setAppStatusAC('failed'))
+            return thunkAPI.rejectWithValue({errors: res.data.messages, fieldsErrors: res.data.fieldsErrors})
         }
     } catch (e) {
         const error = e as Error | AxiosError<{ error: string }>
+        thunkAPI.dispatch(setAppStatusAC('failed'))
         handleServerNetworkAppError(thunkAPI.dispatch, error)
+        return thunkAPI.rejectWithValue({errors: [error.message], fieldsErrors: undefined})
     }
-    thunkAPI.dispatch(setAppStatusAC('idle'))
 })
 export const logoutTC = createAsyncThunk('auth/logout', async (payload, thunkAPI) => {
     thunkAPI.dispatch(setAppStatusAC('loading'))
@@ -57,9 +62,7 @@ const slice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(loginTC.fulfilled, (state, action) => {
-            if (action.payload) {
-                state.isLoggedIn = action.payload
-            }
+                state.isLoggedIn = action.payload.isLoggedIn
         })
         builder.addCase(logoutTC.fulfilled, (state, action) => {
             state.isVerifyLogin = false
