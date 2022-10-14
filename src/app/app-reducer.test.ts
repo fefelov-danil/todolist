@@ -1,9 +1,9 @@
 import {
     appReducer,
     appReducerStateType,
-    RequestStatusType, setAppAuthLoadingAC,
-    setAppErrorAC,
-    setAppStatusAC,
+    RequestStatusType, setAppAuthLoading,
+    setAppError,
+    setAppStatus,
 } from "app/app-reducer";
 
 let initialState : appReducerStateType
@@ -17,7 +17,7 @@ beforeEach(() => {
 })
 
 test('change app status', () => {
-    const action = setAppStatusAC('loading')
+    const action = setAppStatus('loading')
 
     const endState = appReducer(initialState, action)
 
@@ -25,7 +25,7 @@ test('change app status', () => {
     expect(endState.appError).toBe(null)
 })
 test('change app error', () => {
-    const action = setAppErrorAC( {appError: 'Some Error'} )
+    const action = setAppError( {appError: 'Some Error'} )
 
     const endState = appReducer(initialState, action)
 
@@ -33,7 +33,7 @@ test('change app error', () => {
     expect(endState.appStatus).toBe('idle')
 })
 test('change isAuthLoading', () => {
-    const action = setAppAuthLoadingAC(true)
+    const action = setAppAuthLoading(true)
 
     const endState = appReducer(initialState, action)
 

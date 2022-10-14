@@ -4,8 +4,8 @@ import {
     tasksReducer,
     TasksStateType, updateTaskTC
 } from 'components/todolists/reducers/tasks-reducer';
-import {addTodolistAC, removeTodoListAC, setTodoListsAC} from "components/todolists/reducers/todolist-reducer";
 import {TaskPriorities, TaskStatuses, TaskType, TodoListType} from "api/todoListsAPI";
+import {addTodolistTC, fetchTodoListsTC, removeTodolistTC} from "components/todolists/reducers/todolist-reducer";
 
 let startState: TasksStateType
 let initialState: TasksStateType
@@ -123,7 +123,7 @@ beforeEach(() => {
 })
 
 test('Add empty tasks to the desired todolist', () => {
-    const action = setTodoListsAC(todoLists)
+    const action = fetchTodoListsTC.fulfilled(todoLists, '')
 
     const endState = tasksReducer({}, action)
 
@@ -189,7 +189,7 @@ test('Status and title of specified task should be changed', () => {
     expect(endState['todolistId2'][0].status).toBe(TaskStatuses.Completed)
 });
 test('Add empty array to new todoList', () => {
-    const action = addTodolistAC(todolist)
+    const action = addTodolistTC.fulfilled(todolist, '', 'Title1')
 
     const endState = tasksReducer(startState, action)
 
@@ -197,7 +197,7 @@ test('Add empty array to new todoList', () => {
     expect(endState['todolistId2'][0].title).toBe('bread')
 })
 test('Delete todolistId', () => {
-    const action = removeTodoListAC("todolistId2");
+    const action = removeTodolistTC.fulfilled("todolistId2", '', "todolistId2");
 
     const endState = tasksReducer(startState, action)
 
