@@ -29,7 +29,6 @@ export const TodoList = React.memo( (props: TodoListPropsType) => {
         }
     }, [isVerifyLogin])
 
-
     const removeTodoList = useCallback( () => {
         dispatch(removeTodolistTC(props.todoListID))
     }, [props.todoListID])
@@ -39,7 +38,7 @@ export const TodoList = React.memo( (props: TodoListPropsType) => {
     }, [props.todoListID])
 
     const changeTodoListTitle = useCallback( (title: string) => {
-        dispatch(changeTodolistTC(props.todoListID, title))
+        dispatch(changeTodolistTC({todolistId: props.todoListID, title}))
     }, [props.todoListID])
 
     const addTask = useCallback((title: string) => {

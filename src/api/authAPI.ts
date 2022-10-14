@@ -4,7 +4,7 @@ export const authAPI = {
     login(values: AuthValues) {
         return instance.post<AuthResponseType<MeType>>('auth/login', values)
     },
-    verifyLogin() {
+    me() {
         return instance.get<AuthResponseType<UserType>>('auth/me')
     },
     logout() {
