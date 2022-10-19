@@ -14,11 +14,11 @@ import {ErrorSnackbar} from "components/errorSnackbar/ErrorSnackbar";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {PageNotFound} from "components/404/PageNotFound";
 import {TodoLists} from "components/todolists/TodoLists";
-import {Login} from "components/features/login/Login";
-import {logoutTC, verifyLoginTC} from "components/features/login/authReducer";
+import {Login} from "components/features/auth/Login";
+import {logoutTC, verifyLoginTC} from "components/features/auth/auth-reducer";
 
 export function App() {
-    //BLL:
+
     const dispatch = useAppDispatch()
     const appStatus = useAppSelector(state => state.app.appStatus)
     const isVerifyLogin = useAppSelector(state => state.login.isVerifyLogin)
@@ -63,7 +63,7 @@ export function App() {
                             </AppBar>
                             <Routes>
                                 <Route path={'/'} element={<TodoLists/>}/>
-                                <Route path={'/login'} element={<Login/>}/>
+                                <Route path={'/auth'} element={<Login/>}/>
                                 <Route path={'/404'} element={<PageNotFound/>}/>
                                 <Route path={'*'} element={<Navigate to={'/404'}/>}/>
                             </Routes>

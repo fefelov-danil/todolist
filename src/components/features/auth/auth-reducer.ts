@@ -9,16 +9,12 @@ export const verifyLoginTC = createAsyncThunk('auth/verifyLogin', async (payload
     dispatch(setAppLoading(true))
     const res = await authAPI.me()
     dispatch(setAppLoading(false))
-    if (res.data.resultCode === 0) {
-        return true
-    } else {
-        return false
-    }
+    return res.data.resultCode === 0
 })
 export const loginTC = createAsyncThunk<
     void, AuthValues,
     { rejectValue: { errors: string[]; fieldsErrors?: Array<FieldsErrorsType> } }
-    >('auth/login', async (values: AuthValues, {dispatch, rejectWithValue}) => {
+    >('auth/auth', async (values: AuthValues, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatus('loading'))
     try {
         const res = await authAPI.login(values)

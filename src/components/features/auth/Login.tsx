@@ -8,7 +8,7 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {FormikHelpers, useFormik} from "formik";
-import {loginTC} from "components/features/login/authReducer";
+import {loginTC} from "components/features/auth/auth-reducer";
 import {useAppDispatch, useAppSelector} from "app/hooks";
 import {ErrorSnackbar} from "components/errorSnackbar/ErrorSnackbar";
 import LinearProgress from "@mui/material/LinearProgress";
