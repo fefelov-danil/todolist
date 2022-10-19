@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from 'react';
 import {AddItemForm} from "components/addItemForm/AddItemForm";
 import {EditableSpan} from "components/editableSpan/EditableSpan";
 import {addTaskTC, fetchTasksTC} from "components/todolists/reducers/tasks-reducer";
-import {changeTodoListFilterAC, changeTodolistTC, removeTodolistTC} from "components/todolists/reducers/todolist-reducer";
+import {changeTodoListFilterAC, changeTodolistTitleTC, removeTodolistTC} from "components/todolists/reducers/todolist-reducer";
 import {Task} from "components/todolists/todolist/task/Task";
 import {FilterValuesType, TaskStatuses} from "api/todoListsAPI";
 import {useAppDispatch, useAppSelector} from "app/hooks";
@@ -38,7 +38,7 @@ export const TodoList = React.memo( (props: TodoListPropsType) => {
     }, [props.todoListID])
 
     const changeTodoListTitle = useCallback( (title: string) => {
-        dispatch(changeTodolistTC({todolistId: props.todoListID, title}))
+        dispatch(changeTodolistTitleTC({todolistId: props.todoListID, title}))
     }, [props.todoListID])
 
     const addTask = useCallback((title: string) => {

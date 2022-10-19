@@ -144,7 +144,7 @@ test('Get a list of tasks in the correct todolist', () => {
     expect(endState['todolistId1'][4]).toBeUndefined()
 });
 test('Correct task should be deleted from correct array', () => {
-    const action = removeTaskTC.fulfilled({todolistId: "todolistId2", taskId: "2"}, '', {todolistId: "todolistId2", taskId: "2"} );
+    const action = removeTaskTC.fulfilled({todolistId: "todolistId2", taskId: "2"}, '', {todolistId: "todolistId1", taskId: "2"} );
 
     const endState = tasksReducer(startState, action)
 
@@ -156,7 +156,7 @@ test('Correct task should be deleted from correct array', () => {
 
 });
 test('Correct task should be added to correct array', () => {
-    const action = addTaskTC.fulfilled({task}, '', {todolistId: 'todolistId2', title: 'Title'});
+    const action = addTaskTC.fulfilled({task}, '', {todolistId: 'todolistId1', title: 'Title'});
 
     const endState = tasksReducer(startState, action)
 

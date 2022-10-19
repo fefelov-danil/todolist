@@ -1,6 +1,6 @@
 import {
     addTodolistTC,
-    changeTodoListEntityStatusAC, changeTodoListFilterAC, changeTodolistTC, fetchTodoListsTC, removeTodolistTC,
+    changeTodoListEntityStatusAC, changeTodoListFilterAC, changeTodolistTitleTC, fetchTodoListsTC, removeTodolistTC,
     todoListsReducer
 } from "components/todolists/reducers/todolist-reducer";
 import {TodolistDomainType, TodoListType} from "api/todoListsAPI";
@@ -56,7 +56,7 @@ test('Adding a todoList', () => {
     expect(endState[1].id).toBe('todolistId1')
 })
 test('Change todoList title', () => {
-    const action = changeTodolistTC.fulfilled({id: 'todolistId3', title: 'New title'}, '', {
+    const action = changeTodolistTitleTC.fulfilled({id: 'todolistId3', title: 'New title'}, '', {
         todolistId: 'todolistId3',
         title: 'New title'
     })

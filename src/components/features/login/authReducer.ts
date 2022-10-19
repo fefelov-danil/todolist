@@ -47,13 +47,13 @@ export const logoutTC = createAsyncThunk('auth/logout', async (payload, {dispatc
         } else {
             dispatch(setAppStatus('failed'))
             handleServerNetworkAppError(dispatch, {name: 'Error', message: 'Error'})
-            return rejectWithValue({})
+            return rejectWithValue(null)
         }
     } catch (e) {
         const error = e as Error | AxiosError<{ error: string }>
         dispatch(setAppStatus('failed'))
         handleServerNetworkAppError(dispatch, error)
-        return rejectWithValue({})
+        return rejectWithValue(null)
     }
 })
 
