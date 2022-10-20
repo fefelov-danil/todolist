@@ -5,7 +5,7 @@ const slice = createSlice({
     initialState: {
         appStatus: 'idle' as RequestStatusType,
         appError: null as null | string,
-        isAuthLoading: true as boolean
+        isAppLoading: true as boolean
     },
     reducers: {
         setAppStatus(state, action: PayloadAction<RequestStatusType>) {
@@ -15,7 +15,7 @@ const slice = createSlice({
             state.appError = action.payload.appError
         },
         setAppLoading(state, action: PayloadAction<boolean>) {
-            state.isAuthLoading = action.payload
+            state.isAppLoading = action.payload
         }
     }
 })

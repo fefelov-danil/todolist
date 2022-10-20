@@ -2,7 +2,7 @@ import {
     addTodolistTC,
     changeTodoListEntityStatusAC, changeTodoListFilterAC, changeTodolistTitleTC, fetchTodoListsTC, removeTodolistTC,
     todoListsReducer
-} from "components/todolists/reducers/todolist-reducer";
+} from "components/todolists/reducers/todolists-reducer";
 import {TodolistDomainType, TodoListType} from "api/todoListsAPI";
 
 let startState: Array<TodolistDomainType>

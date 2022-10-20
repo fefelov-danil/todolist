@@ -12,7 +12,7 @@ beforeEach(() => {
     initialState = {
         appStatus: 'idle' as RequestStatusType,
         appError: null as null | string,
-        isAuthLoading: true as boolean
+        isAppLoading: true as boolean
     }
 })
 
@@ -37,5 +37,5 @@ test('change isAuthLoading', () => {
 
     const endState = appReducer(initialState, action)
 
-    expect(endState.isAuthLoading).toBe(true)
+    expect(endState.isAppLoading).toBe(true)
 })

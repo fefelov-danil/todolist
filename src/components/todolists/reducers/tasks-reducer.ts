@@ -1,7 +1,7 @@
 import {
     addTodolistTC,
     changeTodoListEntityStatusAC, fetchTodoListsTC, removeTodolistTC,
-} from "components/todolists/reducers/todolist-reducer";
+} from "components/todolists/reducers/todolists-reducer";
 import {
     ResultCode,
     TaskDomainType,

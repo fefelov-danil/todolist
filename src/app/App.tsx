@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import 'app/App.css';
-import {fetchTodoListsTC} from "components/todolists/reducers/todolist-reducer";
+import {fetchTodoListsTC} from "components/todolists/reducers/todolists-reducer";
 import {useAppDispatch, useAppSelector} from "app/hooks";
 import LinearProgress from "@mui/material/LinearProgress";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -22,7 +22,7 @@ export function App() {
     const dispatch = useAppDispatch()
     const appStatus = useAppSelector(state => state.app.appStatus)
     const isVerifyLogin = useAppSelector(state => state.login.isVerifyLogin)
-    const isAuthLoading = useAppSelector(state => state.app.isAuthLoading)
+    const isAppLoading = useAppSelector(state => state.app.isAppLoading)
 
     useEffect(() => {
         if(!isVerifyLogin) {
@@ -38,7 +38,7 @@ export function App() {
 
     return (
         <div className="App">
-            {isAuthLoading
+            {isAppLoading
                 ? <div className={'circularProgress'}><CircularProgress /></div>
                 : <div>
                     {isVerifyLogin

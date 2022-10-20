@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from 'react';
 import {AddItemForm} from "components/addItemForm/AddItemForm";
 import {EditableSpan} from "components/editableSpan/EditableSpan";
 import {addTaskTC, fetchTasksTC} from "components/todolists/reducers/tasks-reducer";
-import {changeTodoListFilterAC, changeTodolistTitleTC, removeTodolistTC} from "components/todolists/reducers/todolist-reducer";
+import {changeTodoListFilterAC, changeTodolistTitleTC, removeTodolistTC} from "components/todolists/reducers/todolists-reducer";
 import {Task} from "components/todolists/todolist/task/Task";
 import {FilterValuesType, TaskStatuses} from "api/todoListsAPI";
 import {useAppDispatch, useAppSelector} from "app/hooks";

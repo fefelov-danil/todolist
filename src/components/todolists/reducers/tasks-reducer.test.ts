@@ -5,7 +5,7 @@ import {
     TasksStateType, updateTaskTC
 } from 'components/todolists/reducers/tasks-reducer';
 import {TaskPriorities, TaskStatuses, TaskType, TodoListType} from "api/todoListsAPI";
-import {addTodolistTC, fetchTodoListsTC, removeTodolistTC} from "components/todolists/reducers/todolist-reducer";
+import {addTodolistTC, fetchTodoListsTC, removeTodolistTC} from "components/todolists/reducers/todolists-reducer";
 
 let startState: TasksStateType
 let initialState: TasksStateType
