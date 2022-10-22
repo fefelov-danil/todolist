@@ -3,9 +3,9 @@ import {
     changeTaskEntityStatusAC, fetchTasksTC, removeTaskTC,
     tasksReducer,
     TasksStateType, updateTaskTC
-} from 'components/todolists/reducers/tasks-reducer';
+} from 'components/todolists/tasks-reducer';
 import {TaskPriorities, TaskStatuses, TaskType, TodoListType} from "api/todoListsAPI";
-import {addTodolistTC, fetchTodoListsTC, removeTodolistTC} from "components/todolists/reducers/todolists-reducer";
+import {addTodolistTC, fetchTodoListsTC, removeTodolistTC} from "components/todolists/todolists-reducer";
 
 let startState: TasksStateType
 let initialState: TasksStateType

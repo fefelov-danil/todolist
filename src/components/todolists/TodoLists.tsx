@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {Container, Grid, Paper} from "@mui/material";
 import {AddItemForm} from "components/addItemForm/AddItemForm";
-import {addTodolistTC} from "components/todolists/reducers/todolists-reducer";
+import {addTodolistTC} from "components/todolists/todolists-reducer";
 import {TodoList} from "components/todolists/todolist/TodoList";
 import {useAppDispatch, useAppSelector} from "app/hooks";
 
