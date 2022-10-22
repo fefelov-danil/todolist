@@ -1,15 +1,16 @@
 import React, {useCallback, useEffect} from 'react';
 import {AddItemForm} from "components/addItemForm/AddItemForm";
 import {EditableSpan} from "components/editableSpan/EditableSpan";
-import {addTaskTC, fetchTasksTC} from "components/todolists/tasks-reducer";
-import {changeTodoListFilterAC, changeTodolistTitleTC, removeTodolistTC} from "components/todolists/todolists-reducer";
 import {Task} from "components/todolists/todolist/task/Task";
 import {FilterValuesType, TaskStatuses} from "api/todoListsAPI";
-import {useAppDispatch, useAppSelector} from "app/hooks";
+import {useAppSelector} from "app/hooks";
 import IconButton from '@mui/material/IconButton/IconButton';
 import {DeleteOutline} from "@mui/icons-material";
 import {Button, List} from "@mui/material";
 import {RequestStatusType} from "app/app-reducer";
+import {tasksActions, todoListsActions, todosSelectors} from "components/todolists/index";
+import {useActions} from "app/store";
+import {authSelectors} from "components/features/auth";
 
 type TodoListPropsType = {
     todoListID: string
@@ -19,31 +20,41 @@ type TodoListPropsType = {
 }
 
 export const TodoList = React.memo( (props: TodoListPropsType) => {
-    const dispatch = useAppDispatch()
-    const tasks = useAppSelector(state => state.tasks[props.todoListID])
-    const isVerifyLogin = useAppSelector(state => state.login.isVerifyLogin)
+    const tasks = useAppSelector(todosSelectors.selectTasks)[props.todoListID]
+    const isVerifyLogin = useAppSelector(authSelectors.selectVerifyLogin)
+    const {addTask, fetchTasks} = useActions(tasksActions)
+    const {removeTodolist, changeTodolistTitle, changeTodoListFilter} = useActions(todoListsActions)
 
     useEffect(() => {
         if(isVerifyLogin) {
-            dispatch(fetchTasksTC(props.todoListID))
+            fetchTasks(props.todoListID)
         }
     }, [isVerifyLogin])
 
-    const removeTodoList = useCallback( () => {
-        dispatch(removeTodolistTC(props.todoListID))
+    const removeTodoListHandler = useCallback( () => {
+        removeTodolist(props.todoListID)
     }, [props.todoListID])
 
-    const changeFilter = useCallback( (filter: FilterValuesType) => {
-        dispatch(changeTodoListFilterAC( {id: props.todoListID, filter} ))
+    const changeFilterHandler = useCallback( (filter: FilterValuesType) => {
+        changeTodoListFilter( {id: props.todoListID, filter} )
     }, [props.todoListID])
 
-    const changeTodoListTitle = useCallback( (title: string) => {
-        dispatch(changeTodolistTitleTC({todolistId: props.todoListID, title}))
+    const changeTodoListTitleHandler = useCallback( (title: string) => {
+        changeTodolistTitle({todolistId: props.todoListID, title})
     }, [props.todoListID])
 
-    const addTask = useCallback((title: string) => {
-        dispatch(addTaskTC({todolistId: props.todoListID, title}))
+    const addTaskHandler = useCallback((title: string) => {
+        addTask({todolistId: props.todoListID, title})
     }, [props.todoListID])
+
+    const renderFilterButton = (filter: FilterValuesType) => {
+        return <Button
+            size={"small"}
+            color={props.filter === filter ? "secondary" : "primary"}
+            variant={"contained"}
+            disableElevation
+            onClick={() => changeFilterHandler(filter)}>{filter}</Button>
+    }
 
     let tasksForRender = tasks
     if (props.filter === "active") {
@@ -66,42 +77,27 @@ export const TodoList = React.memo( (props: TodoListPropsType) => {
             <h3>
                 <EditableSpan
                     title={props.title}
-                    updateTitle={changeTodoListTitle}
+                    updateTitle={changeTodoListTitleHandler}
                     disabled={props.entityStatus === 'loading'}/>
                 <IconButton
                     color={"secondary"}
                     size={"small"}
                     disabled={props.entityStatus === 'loading'}
-                    onClick={removeTodoList}>
+                    onClick={removeTodoListHandler}>
                     <DeleteOutline/>
                 </IconButton>
             </h3>
             <AddItemForm
-                addItem={addTask}
+                addItem={addTaskHandler}
                 disabled={props.entityStatus === 'loading'}
                 />
             <List>
                 {tasksJSXElements}
             </List>
             <div>
-                <Button
-                    size={"small"}
-                    color={props.filter === "all" ? "secondary" : "primary"}
-                    variant={"contained"}
-                    disableElevation
-                    onClick={() => changeFilter("all")}>All</Button>
-                <Button
-                    size={"small"}
-                    color={props.filter === "active" ? "secondary" : "primary"}
-                    variant={"contained"}
-                    disableElevation
-                    onClick={() => changeFilter("active")}>Active</Button>
-                <Button
-                    size={"small"}
-                    color={props.filter === "completed" ? "secondary" : "primary"}
-                    variant={"contained"}
-                    disableElevation
-                    onClick={() => changeFilter("completed")}>Completed</Button>
+                {renderFilterButton('all')}
+                {renderFilterButton('active')}
+                {renderFilterButton('completed')}
             </div>
         </div>
     );

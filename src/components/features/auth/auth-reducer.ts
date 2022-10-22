@@ -1,17 +1,16 @@
-import {authAPI, AuthValues, FieldsErrorsType} from "api/authAPI";
-import {setAppLoading, setAppError, setAppStatus} from "app/app-reducer";
-import {handleServerNetworkAppError} from "utils/error-utils";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {setAppLoading, setAppError, setAppStatus} from "app/app-reducer";
+import {authAPI, AuthValues, FieldsErrorsType} from "api/authAPI";
+import {handleServerNetworkAppError} from "utils/error-utils";
 import {AxiosError} from "axios";
 
-
-export const verifyLoginTC = createAsyncThunk('auth/verifyLogin', async (payload, {dispatch}) => {
+const verifyLoginTC = createAsyncThunk('auth/verifyLogin', async (payload, {dispatch}) => {
     dispatch(setAppLoading(true))
     const res = await authAPI.me()
     dispatch(setAppLoading(false))
     return res.data.resultCode === 0
 })
-export const loginTC = createAsyncThunk<
+const loginTC = createAsyncThunk<
     void, AuthValues,
     { rejectValue: { errors: string[]; fieldsErrors?: Array<FieldsErrorsType> } }
     >('auth/auth', async (values: AuthValues, {dispatch, rejectWithValue}) => {
@@ -33,7 +32,7 @@ export const loginTC = createAsyncThunk<
         return rejectWithValue({errors: [error.message], fieldsErrors: undefined})
     }
 })
-export const logoutTC = createAsyncThunk('auth/logout', async (payload, {dispatch, rejectWithValue}) => {
+const logoutTC = createAsyncThunk('auth/logout', async (payload, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatus('loading'))
     try {
         const res = await authAPI.logout()
@@ -52,6 +51,12 @@ export const logoutTC = createAsyncThunk('auth/logout', async (payload, {dispatc
         return rejectWithValue(null)
     }
 })
+
+export const authAsyncActions = {
+    verifyLoginTC,
+    loginTC,
+    logoutTC
+}
 
 const slice = createSlice({
     name: 'auth',

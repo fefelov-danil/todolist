@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import 'app/App.css';
-import {fetchTodoListsTC} from "components/todolists/todolists-reducer";
-import {useAppDispatch, useAppSelector} from "app/hooks";
+import {useAppSelector} from "./";
 import LinearProgress from "@mui/material/LinearProgress";
 import CircularProgress from "@mui/material/CircularProgress";
 import AppBar from '@mui/material/AppBar';
@@ -10,30 +9,34 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import {Menu} from "@mui/icons-material";
 import Button from '@mui/material/Button';
-import {ErrorSnackbar} from "components/errorSnackbar/ErrorSnackbar";
+import {ErrorSnackbar} from "components/errorSnackbar";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {PageNotFound} from "components/404/PageNotFound";
-import {TodoLists} from "components/todolists/TodoLists";
-import {Login} from "components/features/auth/Login";
-import {logoutTC, verifyLoginTC} from "components/features/auth/auth-reducer";
+import {PageNotFound} from "components/404";
+import {TodoLists} from "components/todolists";
+import {Login} from "components/features/auth";
+import {authActions, authSelectors} from "components/features/auth";
+import {appSelectors} from "app";
+import {useActions} from "app/store";
+import {todoListsActions} from "components/todolists";
 
 export function App() {
 
-    const dispatch = useAppDispatch()
-    const appStatus = useAppSelector(state => state.app.appStatus)
-    const isVerifyLogin = useAppSelector(state => state.login.isVerifyLogin)
-    const isAppLoading = useAppSelector(state => state.app.isAppLoading)
+    const appStatus = useAppSelector(appSelectors.selectAppStatus)
+    const isAppLoading = useAppSelector(appSelectors.selectAppLoading)
+    const isVerifyLogin = useAppSelector(authSelectors.selectVerifyLogin)
+    const {verifyLoginTC, logoutTC} = useActions(authActions)
+    const {fetchTodoLists} = useActions(todoListsActions)
 
     useEffect(() => {
         if(!isVerifyLogin) {
-            dispatch(verifyLoginTC())
+            verifyLoginTC()
         } else {
-            dispatch(fetchTodoListsTC())
+            fetchTodoLists()
         }
     }, [isVerifyLogin])
 
     const logoutHandler = () => {
-        dispatch(logoutTC())
+        logoutTC()
     }
 
     return (

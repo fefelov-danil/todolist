@@ -8,10 +8,11 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {FormikHelpers, useFormik} from "formik";
-import {loginTC} from "components/features/auth/auth-reducer";
-import {useAppDispatch, useAppSelector} from "app/hooks";
-import {ErrorSnackbar} from "components/errorSnackbar/ErrorSnackbar";
+import {useAppDispatch, useAppSelector} from "app";
+import {ErrorSnackbar} from "components/errorSnackbar";
 import LinearProgress from "@mui/material/LinearProgress";
+import {appSelectors} from "app";
+import {authAsyncActions} from "./auth-reducer";
 
 type FormValuesType = {
     email: string
@@ -28,7 +29,7 @@ type FormikErrorType = {
 export const Login = () => {
 
     const dispatch = useAppDispatch()
-    const appStatus = useAppSelector(state => state.app.appStatus)
+    const appStatus = useAppSelector(appSelectors.selectAppStatus)
 
     const formik = useFormik({
         initialValues: {
@@ -54,8 +55,8 @@ export const Login = () => {
             return errors
         },
         onSubmit: async (values: FormValuesType, formikHelpers: FormikHelpers<FormValuesType>) => {
-            const action = await dispatch(loginTC(values))
-            if (loginTC.rejected.match(action)) {
+            const action = await dispatch(authAsyncActions.loginTC(values))
+            if (authAsyncActions.loginTC.rejected.match(action)) {
                 if (action.payload?.fieldsErrors?.length) {
                     const error = action.payload.fieldsErrors[0]
                     formikHelpers.setFieldError(error.field, error.error)
