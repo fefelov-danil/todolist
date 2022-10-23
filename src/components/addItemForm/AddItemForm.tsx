@@ -31,7 +31,7 @@ export const AddItemForm = React.memo( (props: AddItemFormPropsType) => {
     const onKeyDownAddTask  = (e: KeyboardEvent<HTMLInputElement>)=> e.key === "Enter" && addTask()
 
     return (
-        <div>
+        <div className={"add-item-form"}>
             <TextField
                 size={"small"}
                 variant={"outlined"}

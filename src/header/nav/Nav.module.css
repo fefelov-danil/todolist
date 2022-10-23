@@ -1,0 +1,160 @@
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 33%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.9);
+  overflow-y: auto;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  transition: all 0.5s ease;
+}
+
+.menu ul {
+  display: block;
+}
+
+.menu ul li a {
+  position: relative;
+  display: inline-block;
+  padding: 15px 0;
+  color: #2f3841;
+  font-family: "Oswald", sans-serif;
+  font-size: 30px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menu ul li a:before {
+  width: 0;
+}
+
+.menu.menuIsOpened {
+  right: 0;
+  opacity: 1;
+}
+
+.headerMenu {
+  position: relative;
+  right: 0;
+  z-index: 10;
+}
+
+.headerMenu .headerBurger {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.headerMenu .headerBurger .burger {
+  position: relative;
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.headerMenu .headerBurger .burger:before {
+  content: "";
+  position: absolute;
+  top: 0;
+}
+
+.headerMenu .headerBurger .burger span {
+  top: 50%;
+  transform: translate(0px, -50%);
+}
+
+.headerMenu .headerBurger .burger:after {
+  content: "";
+  position: absolute;
+  top: calc(100% - 4px);
+}
+
+.headerMenu .headerBurger .burger:before,
+.headerMenu .headerBurger .burger span,
+.headerMenu .headerBurger .burger:after {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #434f5c;
+  transition: 0.3s;
+}
+
+.headerMenu .headerBurger .burger:before,
+.headerMenu .headerBurger .burger:after {
+  transition: top 0.3s 0s, transform 0.3s 0.2s;
+}
+
+.headerMenu.animationReverse .burger:before,
+.headerMenu.animationReverse .burger:after {
+  transition: transform 0.3s 0s, top 0.3s 0.2s;
+}
+
+.headerMenu.mobileMenuActive .burger:before {
+  top: calc(50% - 2px);
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
+.headerMenu.mobileMenuActive .burger span {
+  opacity: 0;
+}
+
+.headerMenu.mobileMenuActive .burger:after {
+  top: calc(50% - 2px);
+  transform: rotate(-45deg);
+  transform-origin: center;
+}
+
+.navActive .headerBurger:before {
+  transform: rotate(45deg);
+  transform-origin: left;
+}
+
+.navActive .headerBurger span {
+  opacity: 0;
+}
+
+.navActive .headerBurger:after {
+  transform: rotate(-45deg);
+  transform-origin: left;
+}
+
+.logout {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px;
+  background: #D2D2D2;
+  text-align: right;
+  margin-bottom: 0;
+}
+
+.logout button {
+  display: flex;
+  align-items: center;
+  color: #3C3C3C;
+  background: transparent;
+  border: 0;
+  margin-left: auto;
+}
+
+.logout button span {
+  display: inline-block;
+  font-size: 18px;
+  margin-right: 5px;
+}

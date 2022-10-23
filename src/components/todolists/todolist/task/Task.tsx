@@ -19,7 +19,7 @@ export const Task = React.memo( (props: TaskPropsType) => {
         removeTask({todolistId: props.todoListID, taskId: props.task.id})
     }, [props.todoListID, props.task.id])
 
-    const changeStatusHandler = useCallback( (e: ChangeEvent<HTMLInputElement>) => {
+    const changeTaskStatusHandler = useCallback( (e: ChangeEvent<HTMLInputElement>) => {
         const status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
         updateTask({todolistId: props.todoListID, taskId: props.task.id, domainModel: {status}})
     }, [props.todoListID, props.task.id])
@@ -36,7 +36,7 @@ export const Task = React.memo( (props: TaskPropsType) => {
             <Checkbox
                 size={"small"}
                 color={"primary"}
-                onChange={changeStatusHandler}
+                onChange={changeTaskStatusHandler}
                 checked={props.task.status === TaskStatuses.Completed}
                 disabled={props.task.entityStatus === "loading"}/>
             <EditableSpan

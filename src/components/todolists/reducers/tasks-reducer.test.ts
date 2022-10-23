@@ -1,7 +1,7 @@
 import {
     changeTaskEntityStatusAC, tasksReducer,
     TasksStateType
-} from 'components/todolists/tasks-reducer';
+} from 'components/todolists/reducers/tasks-reducer';
 import {todoListsActions} from 'components/todolists/index';
 import {TaskPriorities, TaskStatuses, TaskType, TodoListType} from "api/todoListsAPI";
 import {useActions} from "app/store";

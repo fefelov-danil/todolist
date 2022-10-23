@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
-import 'app/App.css';
+import 'assets/geniral-css/reset.css'
+import 'assets/geniral-css/style.css';
+import s from './App.module.css';
 import {useAppSelector} from "./";
 import LinearProgress from "@mui/material/LinearProgress";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -18,13 +20,16 @@ import {authActions, authSelectors} from "components/features/auth";
 import {appSelectors} from "app";
 import {useActions} from "app/store";
 import {todoListsActions} from "components/todolists";
+import mainBg from 'assets/images/todo-fon.jpg'
+import {createTheme} from "@mui/material/styles";
+import {Header} from "header/Header";
 
 export function App() {
 
-    const appStatus = useAppSelector(appSelectors.selectAppStatus)
     const isAppLoading = useAppSelector(appSelectors.selectAppLoading)
     const isVerifyLogin = useAppSelector(authSelectors.selectVerifyLogin)
-    const {verifyLoginTC, logoutTC} = useActions(authActions)
+    const appStatus = useAppSelector(appSelectors.selectAppStatus)
+    const {verifyLoginTC} = useActions(authActions)
     const {fetchTodoLists} = useActions(todoListsActions)
 
     useEffect(() => {
@@ -35,35 +40,19 @@ export function App() {
         }
     }, [isVerifyLogin])
 
-    const logoutHandler = () => {
-        logoutTC()
-    }
-
     return (
-        <div className="App">
+        <div className={s.App}
+             style = {{backgroundImage: `url('${mainBg}')`}}>
             {isAppLoading
                 ? <div className={'circularProgress'}><CircularProgress /></div>
                 : <div>
                     {isVerifyLogin
                         ? <div>
+                            <div className={'linear-progress'}>
+                                {appStatus === 'loading' && <LinearProgress />}
+                            </div>
                             <ErrorSnackbar/>
-                            <AppBar position="static">
-                                <Toolbar style={{justifyContent: "space-between"}}>
-                                    <IconButton edge="start" color="inherit" aria-label="menu">
-                                        <Menu/>
-                                    </IconButton>
-                                    <Typography variant="h6">
-                                        TodoLists
-                                    </Typography>
-                                    {isVerifyLogin && <Button
-                                        color="inherit"
-                                        variant={"outlined"}
-                                        onClick={logoutHandler}>Logout</Button>}
-                                </Toolbar>
-                                <div className={'linear-progress'}>
-                                    {appStatus === 'loading' && <LinearProgress />}
-                                </div>
-                            </AppBar>
+                            <Header/>
                             <Routes>
                                 <Route path={'/'} element={<TodoLists/>}/>
                                 <Route path={'/auth'} element={<Login/>}/>

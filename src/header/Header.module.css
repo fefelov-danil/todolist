@@ -1,0 +1,26 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 50px;
+  padding: 0 20px;
+  background-color: rgba(200,200,200,.7);
+  backdrop-filter: blur(6px);
+  color: #E1E1E1;
+  z-index: 10;
+}
+
+.projectName {
+  color: #434f5c;
+  margin-right: 30px;
+  margin-bottom: 0;
+}
+
+.logoutAndNav {
+  display: flex;
+  align-items: center;
+}

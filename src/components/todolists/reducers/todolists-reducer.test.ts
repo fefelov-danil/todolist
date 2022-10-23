@@ -1,6 +1,6 @@
 import {
     changeTodoListEntityStatus, changeTodoListFilter, todoListsReducer
-} from "components/todolists/todolists-reducer";
+} from "components/todolists/reducers/todolists-reducer";
 import {TodolistDomainType, TodoListType} from "api/todoListsAPI";
 import {todoListsActions} from 'components/todolists/index';
 

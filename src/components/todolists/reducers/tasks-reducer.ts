@@ -11,7 +11,7 @@ import {RequestStatusType, setAppStatus} from "app/app-reducer";
 import {handleServerAppError, handleServerNetworkAppError} from "utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
-import {changeTodoListEntityStatus, todoListsAsyncActions} from "components/todolists/todolists-reducer";
+import {changeTodoListEntityStatus, todoListsAsyncActions} from "components/todolists/reducers/todolists-reducer";
 
 export const fetchTasks =
     createAsyncThunk('tasks/fetchTasks', async (todolistId: string, {dispatch, rejectWithValue}) => {

@@ -1,4 +1,5 @@
 import React, {useCallback, useEffect} from 'react';
+import s from './Todolist.module.css'
 import {AddItemForm} from "components/addItemForm/AddItemForm";
 import {EditableSpan} from "components/editableSpan/EditableSpan";
 import {Task} from "components/todolists/todolist/task/Task";
@@ -73,7 +74,7 @@ export const TodoList = React.memo( (props: TodoListPropsType) => {
         : <span>List is empty</span>
 
     return (
-        <div>
+        <div className={s.todolist}>
             <h3>
                 <EditableSpan
                     title={props.title}
