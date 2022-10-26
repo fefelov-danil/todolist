@@ -1,0 +1,75 @@
+.big,
+.small {
+  width: calc(100% - 43px);
+}
+.editMode {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.editMode input {
+  width: 100%;
+  padding: 0;
+  background: #fff;
+  border: 0;
+}
+.big .editMode input {
+  padding: 5px;
+  color: #555;
+  line-height: 1.3;
+  border-bottom: 1px solid #dedede;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+}
+.small .editMode input {
+  padding: 2px 5px;
+  background: #EBEBEB;
+  line-height: 1.3;
+  border-radius: 4px;
+}
+.editMode .changeTextIcon {
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  transform: translate(0px, -50%);
+  cursor: pointer;
+}
+.editMode .changeTextIcon .disabledIcon {
+  opacity: 0.5;
+}
+.editMode .errorText {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translate(0px, -50%);
+  color: #777;
+  font-family: "OpenSans", sans-serif;
+  font-size: 15px;
+  pointer-events: none;
+}
+.editMode input.errorInp {
+  border-bottom: 1px solid red;
+}
+.textMode {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  word-break: break-all;
+}
+.big .textMode {
+  padding: 5px;
+  border-bottom: 1px solid #C0C0C0;
+}
+.textMode .editTextIcon {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0px, -50%);
+  opacity: 0;
+  vertical-align: top;
+  cursor: pointer;
+  margin-left: auto;
+  transition: 0.2s;
+}
+.textMode:hover .editTextIcon {
+  opacity: 1;
+}

@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useCallback} from 'react';
+import s from './Task.module.css'
 import {EditableSpan} from "components/editableSpan/EditableSpan";
 import {TaskDomainType, TaskStatuses} from "api/todoListsAPI";
 import {Checkbox, ListItem} from "@mui/material";
-import IconButton from "@mui/material/IconButton/IconButton";
-import {HighlightOff} from "@mui/icons-material";
+import CloseIcon from '@mui/icons-material/Close';
 import {useActions} from "app/store";
 import {tasksActions} from "components/todolists/index";
 
@@ -28,30 +28,29 @@ export const Task = React.memo( (props: TaskPropsType) => {
         updateTask({todolistId: props.todoListID, taskId: props.task.id, domainModel: {title}})
     }, [props.todoListID, props.task.id])
 
-    const taskClasses = props.task.status === TaskStatuses.Completed ? "is-done" : "" ;
-
     return (
-        <ListItem
-            style={{padding: "0px"}}>
+        <ListItem className={s.task} sx={{padding: '3px 3px 3px 1px '}}>
             <Checkbox
+                sx={{padding: '3px', marginRight: '2px'}}
                 size={"small"}
                 color={"primary"}
                 onChange={changeTaskStatusHandler}
                 checked={props.task.status === TaskStatuses.Completed}
                 disabled={props.task.entityStatus === "loading"}/>
             <EditableSpan
-                title={props.task.title}
-                classes={taskClasses}
+                size={'small'}
+                value={props.task.title}
                 updateTitle={changeTaskTitleHandler}
                 disabled={props.task.entityStatus === "loading"}
             />
-            <IconButton
-                color={"secondary"}
-                size={"small"}
+            <button
+                className={s.iconDeleteTask}
                 onClick={removeTaskHandler}
                 disabled={props.task.entityStatus === "loading"}>
-                <HighlightOff/>
-            </IconButton>
+                <CloseIcon
+                    className={props.task.entityStatus === "loading" ? s.disabledIcon : ''}
+                    sx={{ fontSize: 17 }}/>
+            </button>
         </ListItem>
     );
 } );

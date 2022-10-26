@@ -40,7 +40,7 @@ const removeTodolist = createAsyncThunk('todoLists/removeTodolist',
         dispatch(setAppStatus('loading'))
         dispatch(changeTodoListEntityStatus({id: todolistId, entityStatus: 'loading'}))
         try {
-            const res = await todoListsAPI.deleteTodoList(todolistId)
+            await todoListsAPI.deleteTodoList(todolistId);
             dispatch(setAppStatus('succeeded'))
             return todolistId
         } catch (e) {
@@ -96,7 +96,7 @@ export const sliceTodoListsReducer = createSlice({
             return action.payload.map(tl => ({...tl, filter: 'all', entityStatus: "idle"}))
         })
         builder.addCase(addTodolist.fulfilled, (state, action) => {
-            state.unshift({...action.payload, filter: 'all', entityStatus: "idle"})
+            state.push({...action.payload, filter: 'all', entityStatus: "idle"})
         })
         builder.addCase(removeTodolist.fulfilled, (state, action) => {
             const index = state.findIndex(tl => tl.id === action.payload)

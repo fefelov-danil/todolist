@@ -1,0 +1,44 @@
+.addItemForm {
+  padding: 3px 0;
+  background: #fff;
+  border: 2px solid #1976D2;
+  border-radius: 3px;
+  margin: 18px 0 10px 0;
+}
+.editMode {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.editMode input {
+  width: 100%;
+  padding: 6px 10px;
+  background: #fff;
+  color: #333;
+  border: 0;
+}
+.editMode .errorText {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translate(0px, -50%);
+  color: #333;
+}
+.editMode .addItemIcon {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0px, -50%);
+  z-index: 10;
+}
+.editMode .addItemIcon .disabledIcon {
+  opacity: 0.5;
+}
+.textMode {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 3px;
+  color: #333;
+  cursor: pointer;
+}

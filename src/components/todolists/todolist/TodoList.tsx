@@ -1,12 +1,12 @@
 import React, {useCallback, useEffect} from 'react';
-import s from './Todolist.module.css'
+import s from './Todolist.module.css';
 import {AddItemForm} from "components/addItemForm/AddItemForm";
 import {EditableSpan} from "components/editableSpan/EditableSpan";
 import {Task} from "components/todolists/todolist/task/Task";
 import {FilterValuesType, TaskStatuses} from "api/todoListsAPI";
 import {useAppSelector} from "app/hooks";
 import IconButton from '@mui/material/IconButton/IconButton';
-import {DeleteOutline} from "@mui/icons-material";
+import CloseIcon from '@mui/icons-material/Close';
 import {Button, List} from "@mui/material";
 import {RequestStatusType} from "app/app-reducer";
 import {tasksActions, todoListsActions, todosSelectors} from "components/todolists/index";
@@ -20,27 +20,27 @@ type TodoListPropsType = {
     entityStatus: RequestStatusType
 }
 
-export const TodoList = React.memo( (props: TodoListPropsType) => {
+export const TodoList = React.memo((props: TodoListPropsType) => {
     const tasks = useAppSelector(todosSelectors.selectTasks)[props.todoListID]
     const isVerifyLogin = useAppSelector(authSelectors.selectVerifyLogin)
     const {addTask, fetchTasks} = useActions(tasksActions)
     const {removeTodolist, changeTodolistTitle, changeTodoListFilter} = useActions(todoListsActions)
 
     useEffect(() => {
-        if(isVerifyLogin) {
+        if (isVerifyLogin) {
             fetchTasks(props.todoListID)
         }
     }, [isVerifyLogin])
 
-    const removeTodoListHandler = useCallback( () => {
+    const removeTodoListHandler = useCallback(() => {
         removeTodolist(props.todoListID)
     }, [props.todoListID])
 
-    const changeFilterHandler = useCallback( (filter: FilterValuesType) => {
-        changeTodoListFilter( {id: props.todoListID, filter} )
+    const changeFilterHandler = useCallback((filter: FilterValuesType) => {
+        changeTodoListFilter({id: props.todoListID, filter})
     }, [props.todoListID])
 
-    const changeTodoListTitleHandler = useCallback( (title: string) => {
+    const changeTodoListTitleHandler = useCallback((title: string) => {
         changeTodolistTitle({todolistId: props.todoListID, title})
     }, [props.todoListID])
 
@@ -51,7 +51,7 @@ export const TodoList = React.memo( (props: TodoListPropsType) => {
     const renderFilterButton = (filter: FilterValuesType) => {
         return <Button
             size={"small"}
-            color={props.filter === filter ? "secondary" : "primary"}
+            color={props.filter === filter ? "primary" : "inherit"}
             variant={"contained"}
             disableElevation
             onClick={() => changeFilterHandler(filter)}>{filter}</Button>
@@ -71,35 +71,40 @@ export const TodoList = React.memo( (props: TodoListPropsType) => {
             todoListID={props.todoListID}
             task={t}/>
         )
-        : <span>List is empty</span>
+        : <div className={s.noTasks}>List is empty</div>
 
     return (
         <div className={s.todolist}>
-            <h3>
+            <p className={s.todoTitle}>
                 <EditableSpan
-                    title={props.title}
+                    size={'big'}
+                    value={props.title}
                     updateTitle={changeTodoListTitleHandler}
                     disabled={props.entityStatus === 'loading'}/>
                 <IconButton
-                    color={"secondary"}
+                    className={s.removeTodo}
                     size={"small"}
                     disabled={props.entityStatus === 'loading'}
                     onClick={removeTodoListHandler}>
-                    <DeleteOutline/>
+                    <CloseIcon sx={{color: '#fff'}}/>
                 </IconButton>
-            </h3>
+            </p>
             <AddItemForm
                 addItem={addTaskHandler}
+                value={'Add a new task'}
                 disabled={props.entityStatus === 'loading'}
-                />
-            <List>
+            />
+            <List sx={{padding: '12px 0'}}>
                 {tasksJSXElements}
             </List>
-            <div>
-                {renderFilterButton('all')}
-                {renderFilterButton('active')}
-                {renderFilterButton('completed')}
-            </div>
+            {tasks.length
+                ? <div className={s.filterButtons}>
+                    {renderFilterButton('all')}
+                    {renderFilterButton('active')}
+                    {renderFilterButton('completed')}
+                </div>
+                : ''
+            }
         </div>
     );
-} );
+});
