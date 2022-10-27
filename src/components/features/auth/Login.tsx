@@ -1,4 +1,5 @@
 import React from 'react'
+import s from './Login.module.css'
 import Grid from '@mui/material/Grid';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
@@ -8,10 +9,8 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {FormikHelpers, useFormik} from "formik";
-import {useAppDispatch, useAppSelector} from "app";
+import {useAppDispatch} from "app";
 import {ErrorSnackbar} from "components/errorSnackbar";
-import LinearProgress from "@mui/material/LinearProgress";
-import {appSelectors} from "app";
 import {authAsyncActions} from "./auth-reducer";
 
 type FormValuesType = {
@@ -29,7 +28,6 @@ type FormikErrorType = {
 export const Login = () => {
 
     const dispatch = useAppDispatch()
-    const appStatus = useAppSelector(appSelectors.selectAppStatus)
 
     const formik = useFormik({
         initialValues: {
@@ -66,23 +64,20 @@ export const Login = () => {
     });
 
     return (
-        <div className='login'>
+        <div className={s.login}>
             <ErrorSnackbar/>
-            <div className={'linear-progress'}>
-                {appStatus === 'loading' && <LinearProgress />}
-            </div>
             <Grid container justifyContent={'center'}>
                 <Grid item justifyContent={'center'}>
                     <FormControl>
                         <FormLabel>
-                            <p>To log in get registered
+                            <h1>Login</h1>
+                            <p className={s.descForLogin}>To log in get registered
                                 <a href={'https://social-network.samuraijs.com/'}
-                                   target={'_blank'}> here
-                                </a>
-                            </p>
-                            <p>or use common test account credentials:</p>
-                            <p>Email: free@samuraijs.com</p>
-                            <p>Password: free</p>
+                                   target={'_blank'}> <span>here</span>
+                                </a><br />
+                                or use common test account credentials:< br/>
+                                Email: free@samuraijs.com< br/>
+                                Password: free</p>
                         </FormLabel>
                         <form onSubmit={formik.handleSubmit}>
                             <FormGroup>

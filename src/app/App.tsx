@@ -5,12 +5,6 @@ import s from './App.module.css';
 import {useAppSelector} from "./";
 import LinearProgress from "@mui/material/LinearProgress";
 import CircularProgress from "@mui/material/CircularProgress";
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import {Menu} from "@mui/icons-material";
-import Button from '@mui/material/Button';
 import {ErrorSnackbar} from "components/errorSnackbar";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {PageNotFound} from "components/404";
@@ -21,7 +15,6 @@ import {appSelectors} from "app";
 import {useActions} from "app/store";
 import {todoListsActions} from "components/todolists";
 import mainBg from 'assets/images/todo-fon.jpg'
-import {createTheme} from "@mui/material/styles";
 import {Header} from "header/Header";
 
 export function App() {
@@ -60,7 +53,13 @@ export function App() {
                                 <Route path={'*'} element={<Navigate to={'/404'}/>}/>
                             </Routes>
                         </div>
-                        : <Login/>
+                        : <div>
+                            <div className={'linear-progress'}>
+                                {appStatus === 'loading' && <LinearProgress />}
+                            </div>
+                            <Header/>
+                            <Login/>
+                        </div>
                     }
                 </div>
             }

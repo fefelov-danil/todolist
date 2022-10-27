@@ -1,5 +1,6 @@
 .App {
   min-height: 100vh;
+  padding-top: 1px;
   background-size: cover;
   background-position: center;
 }
