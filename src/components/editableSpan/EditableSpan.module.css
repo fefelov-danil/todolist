@@ -14,14 +14,14 @@
   border: 0;
 }
 .big .editMode input {
-  padding: 5px;
+  padding: 5px 20px 5px 5px;
   color: #555;
   line-height: 1.3;
   border-bottom: 1px solid #dedede;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
 }
 .small .editMode input {
-  padding: 2px 5px;
+  padding: 2px 20px 2px 5px;
   background: #EBEBEB;
   line-height: 1.3;
   border-radius: 4px;
@@ -36,23 +36,49 @@
 .editMode .changeTextIcon .disabledIcon {
   opacity: 0.5;
 }
-.editMode .errorText {
+.formError {
   position: absolute;
-  left: 8px;
-  top: 50%;
-  transform: translate(0px, -50%);
-  color: #777;
+  left: -8px;
+  top: calc(100% + 6px);
+  padding: 2px 8px 5px 8px;
+  background: #434F5C;
+  color: #fff;
   font-family: "OpenSans", sans-serif;
-  font-size: 15px;
+  font-size: 13px;
+  border-radius: 6px;
+  margin-top: 4px;
   pointer-events: none;
+  animation: fade 0.2s;
+  animation-iteration-count: 1;
+  z-index: 1;
 }
-.editMode input.errorInp {
-  border-bottom: 1px solid red;
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.formError:before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 14px;
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+  background: #434F5C;
+  z-index: -1;
 }
 .textMode {
   position: relative;
   display: inline-block;
   width: 100%;
+  padding-right: 15px;
   word-break: break-all;
 }
 .big .textMode {

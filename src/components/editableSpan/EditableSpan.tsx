@@ -16,7 +16,7 @@ export const EditableSpan: React.FC<EditAbleSpanPropsType> = React.memo((
 ) => {
     const [editMode, setEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState<string>(value)
-    const [error, setError] = useState<boolean>(false)
+    const [error, setError] = useState<boolean | string>(false)
 
     const onEditMode = () => {
         !disabled && setEditMode(true)
@@ -31,7 +31,7 @@ export const EditableSpan: React.FC<EditAbleSpanPropsType> = React.memo((
             updateTitle(title)
             setEditMode(false)
         } else {
-            setError(true)
+            setError("The field is required")
         }
     }
 
@@ -39,7 +39,8 @@ export const EditableSpan: React.FC<EditAbleSpanPropsType> = React.memo((
         setTitle(e.currentTarget.value)
         const itemTitle = e.currentTarget.value.trim()
         if (error && itemTitle) setError(false)
-        if (!error && !itemTitle) setError(true)
+        if (!itemTitle) setError("The field is required")
+        if (itemTitle.length >= 100) setError("Length no more than 100 characters")
     }
     const onKeyDownChangeText = (e: KeyboardEvent<HTMLInputElement>) => {
         e.key === "Enter" && offEditMode()
@@ -58,7 +59,7 @@ export const EditableSpan: React.FC<EditAbleSpanPropsType> = React.memo((
                             onChange={onChangeSetTitle}
                             onKeyDown={onKeyDownChangeText}
                             style={{fontFamily: size === 'big' ? 'Oswald' : 'OpenSans'}}/>
-                        <span className={s.errorText}>{error && "The field is required"}</span>
+                        {editMode && error && <div className={s.formError}>{error}</div>}
                         <IconButton
                             className={s.changeTextIcon}
                             onClick={offEditMode}
@@ -74,7 +75,7 @@ export const EditableSpan: React.FC<EditAbleSpanPropsType> = React.memo((
                         {value}
                         <EditIcon
                             className={s.editTextIcon}
-                            sx={{fontSize: 17, color: '#777'}}/>
+                            sx={{fontSize: 15, color: '#777'}}/>
                     </span>
             }
         </span>
