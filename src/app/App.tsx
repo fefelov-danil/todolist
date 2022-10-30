@@ -11,7 +11,7 @@ import {PageNotFound} from "components/404";
 import {TodoLists} from "components/todolists";
 import {Login} from "components/features/auth";
 import {authActions, authSelectors} from "components/features/auth";
-import {appSelectors} from "app";
+import {appSelectors} from "./";
 import {useActions} from "app/store";
 import {todoListsActions} from "components/todolists";
 import mainBg from 'assets/images/todo-fon.jpg'
@@ -22,12 +22,12 @@ export function App() {
     const isAppLoading = useAppSelector(appSelectors.selectAppLoading)
     const isVerifyLogin = useAppSelector(authSelectors.selectVerifyLogin)
     const appStatus = useAppSelector(appSelectors.selectAppStatus)
-    const {verifyLoginTC} = useActions(authActions)
+    const {verifyLogin} = useActions(authActions)
     const {fetchTodoLists} = useActions(todoListsActions)
 
     useEffect(() => {
         if(!isVerifyLogin) {
-            verifyLoginTC()
+            verifyLogin()
         } else {
             fetchTodoLists()
         }

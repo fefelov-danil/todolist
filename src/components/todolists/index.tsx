@@ -2,6 +2,8 @@ import * as todosSelectors from './selectors'
 import {tasksAsyncActions as tasksActions} from 'components/todolists/reducers/tasks-reducer'
 import {todoListsAsyncActions} from 'components/todolists/reducers/todolists-reducer'
 import {sliceTodoListsReducer} from 'components/todolists/reducers/todolists-reducer'
+import {todoListsReducer} from './reducers/todolists-reducer'
+import {tasksReducer} from './reducers/tasks-reducer'
 import {TodoLists} from './TodoLists'
 
 const todoListsActions = {
@@ -13,5 +15,7 @@ export {
     todosSelectors,
     tasksActions,
     todoListsActions,
+    todoListsReducer,
+    tasksReducer,
     TodoLists
 }

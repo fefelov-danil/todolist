@@ -1,12 +1,14 @@
 import {ActionCreatorsMapObject, AnyAction, bindActionCreators, combineReducers} from "redux";
-import {todoListsReducer} from "components/todolists/reducers/todolists-reducer";
+import {todoListsReducer} from "components/todolists";
+import {tasksReducer} from "components/todolists";
 import thunk, {ThunkAction} from "redux-thunk";
 import {appReducer} from "app/app-reducer";
-import {authReducer} from "components/features/auth/auth-reducer";
+import {authReducer} from "components/features/auth";
 import {configureStore} from "@reduxjs/toolkit";
-import {tasksReducer} from "components/todolists/reducers/tasks-reducer";
+
 import {useAppDispatch} from "app";
 import {useMemo} from "react";
+import {FieldsErrorsType} from "api/authAPI";
 
 const rootReducer = combineReducers({
     todoLists: todoListsReducer,
@@ -29,12 +31,12 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unk
 export function useActions<T extends ActionCreatorsMapObject<any>>(actions: T) {
     const dispatch = useAppDispatch()
 
-    const boundActions = useMemo(() => {
+    return useMemo(() => {
         return bindActionCreators(actions, dispatch)
     }, [])
-
-    return boundActions
 }
+
+export type ThunkError = { rejectValue: { errors: string[]; fieldsErrors?: Array<FieldsErrorsType> } }
 
 // @ts-ignore
 window.store = store

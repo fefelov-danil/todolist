@@ -12,8 +12,7 @@ const fetchTodoLists = createAsyncThunk('todoLists/fetchTodoLists',
             dispatch(setAppStatus('succeeded'))
             return res.data
         } catch (e) {
-            const error = e as Error | AxiosError<{ error: string }>
-            handleServerNetworkAppError(dispatch, error)
+            handleServerNetworkAppError(dispatch, e as Error | AxiosError<{ error: string }>)
             return rejectWithValue(null)
         }
     })
@@ -30,8 +29,7 @@ const addTodolist = createAsyncThunk('todoLists/addTodolist',
                 return rejectWithValue(null)
             }
         } catch (e) {
-            const error = e as Error | AxiosError<{ error: string }>
-            handleServerNetworkAppError(dispatch, error)
+            handleServerNetworkAppError(dispatch, e as Error | AxiosError<{ error: string }>)
             return rejectWithValue(null)
         }
     })
@@ -44,8 +42,7 @@ const removeTodolist = createAsyncThunk('todoLists/removeTodolist',
             dispatch(setAppStatus('succeeded'))
             return todolistId
         } catch (e) {
-            const error = e as Error | AxiosError<{ error: string }>
-            handleServerNetworkAppError(dispatch, error)
+            handleServerNetworkAppError(dispatch, e as Error | AxiosError<{ error: string }>)
             return rejectWithValue(null)
         }
     })
@@ -58,16 +55,16 @@ const changeTodolistTitle =
                 const res = await todoListsAPI.updateTodoList(param.todolistId, param.title)
                 if (res.data.resultCode === ResultCode.SUCCESSFUL) {
                     dispatch(setAppStatus('idle'))
-                    dispatch(changeTodoListEntityStatus({id: param.todolistId, entityStatus: 'idle'}))
                     return {title: param.title, id: param.todolistId}
                 } else {
                     handleServerAppError(dispatch, res.data)
                     return rejectWithValue(null)
                 }
             } catch (e) {
-                const error = e as Error | AxiosError<{ error: string }>
-                handleServerNetworkAppError(dispatch, error)
+                handleServerNetworkAppError(dispatch, e as Error | AxiosError<{ error: string }>)
                 return rejectWithValue(null)
+            } finally {
+                dispatch(changeTodoListEntityStatus({id: param.todolistId, entityStatus: 'idle'}))
             }
         })
 

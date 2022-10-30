@@ -28,7 +28,10 @@ export const TodoList = React.memo((props: TodoListPropsType) => {
 
     useEffect(() => {
         if (isVerifyLogin) {
-            fetchTasks(props.todoListID)
+            const test = async () => {
+                await fetchTasks(props.todoListID)
+            }
+            test()
         }
     }, [isVerifyLogin])
 
@@ -73,6 +76,8 @@ export const TodoList = React.memo((props: TodoListPropsType) => {
         )
         : <div className={s.noTasks}>List is empty</div>
 
+    const disabled = props.entityStatus === 'loading'
+
     return (
         <div className={s.todolist}>
             <p className={s.todoTitle}>
@@ -80,13 +85,13 @@ export const TodoList = React.memo((props: TodoListPropsType) => {
                     size={'big'}
                     value={props.title}
                     updateTitle={changeTodoListTitleHandler}
-                    disabled={props.entityStatus === 'loading'}/>
+                    disabled={disabled}/>
                 <IconButton
                     className={s.removeTodo}
                     size={"small"}
-                    disabled={props.entityStatus === 'loading'}
+                    disabled={disabled}
                     onClick={removeTodoListHandler}>
-                    <CloseIcon sx={{color: '#fff'}}/>
+                    <CloseIcon className={disabled ? s.disabledIcon : ''} sx={{color: '#fff'}}/>
                 </IconButton>
             </p>
             <AddItemForm

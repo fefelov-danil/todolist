@@ -1,11 +1,20 @@
 .todolist {
   position: relative;
+  min-width: 300px;
+  width: 300px;
   padding: 22px;
   background: #EBECF0;
   border-radius: 7px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  margin-right: 30px;
 }
-.todolist .removeTodo {
+.todolist .todoTitle {
+  font-family: "Oswald", sans-serif;
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 10px;
+}
+.todolist .todoTitle .removeTodo {
   position: absolute;
   top: 0;
   right: 0;
@@ -13,14 +22,11 @@
   padding: 0;
   border-radius: 0 7px 0 5px;
 }
-.todolist .removeTodo:hover {
-  background: #555;
+.todolist .todoTitle .removeTodo .disabledIcon {
+  opacity: 0.5;
 }
-.todolist .todoTitle {
-  font-family: "Oswald", sans-serif;
-  font-size: 20px;
-  color: #555;
-  margin-bottom: 10px;
+.todolist .todoTitle .removeTodo:hover {
+  background: #555;
 }
 .filterButtons {
   display: flex;

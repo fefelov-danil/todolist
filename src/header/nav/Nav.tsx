@@ -6,8 +6,7 @@ import {useAppSelector} from "app";
 import {authActions, authSelectors} from "components/features/auth";
 import {useActions} from "app/store";
 
-export const Nav = () => {
-
+export const Nav = React.memo(() => {
     const isVerifyLogin = useAppSelector(authSelectors.selectVerifyLogin)
     const {logoutTC} = useActions(authActions)
 
@@ -68,4 +67,4 @@ export const Nav = () => {
             </div>
         </div>
     );
-};
+});

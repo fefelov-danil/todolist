@@ -21,8 +21,7 @@ export const fetchTasks =
             dispatch(setAppStatus('idle'))
             return {todolistId, tasks: res.data.items}
         } catch (e) {
-            const error = e as Error | AxiosError<{ error: string }>
-            handleServerNetworkAppError(dispatch, error)
+            handleServerNetworkAppError(dispatch, e as Error | AxiosError<{ error: string }>)
             return rejectWithValue(null)
         }
     })
@@ -32,6 +31,7 @@ export const addTask =
         rejectWithValue
     }) => {
         dispatch(setAppStatus('loading'))
+        dispatch(changeTodoListEntityStatus({id: param.todolistId, entityStatus: 'loading'}))
         try {
             const res = await todoListsAPI.createTask(param.todolistId, param.title)
             if (res.data.resultCode === ResultCode.SUCCESSFUL) {
@@ -43,10 +43,10 @@ export const addTask =
                 return rejectWithValue(null)
             }
         } catch (e) {
-            const error = e as Error | AxiosError<{ error: string }>
-            handleServerNetworkAppError(dispatch, error)
-            dispatch(changeTodoListEntityStatus({id: param.todolistId, entityStatus: 'failed'}))
+            handleServerNetworkAppError(dispatch, e as Error | AxiosError<{ error: string }>)
             return rejectWithValue(null)
+        } finally {
+            dispatch(changeTodoListEntityStatus({id: param.todolistId, entityStatus: 'failed'}))
         }
     })
 export const removeTask =
@@ -66,15 +66,14 @@ export const removeTask =
         dispatch(setAppStatus('loading'))
         changeTaskEntityStatus('loading')
         try {
-            const res = await todoListsAPI.deleteTask(param.todolistId, param.taskId)
+            await todoListsAPI.deleteTask(param.todolistId, param.taskId)
             dispatch(setAppStatus('idle'))
-            changeTaskEntityStatus('idle')
             return {todolistId: param.todolistId, taskId: param.taskId}
         } catch (e) {
-            const error = e as Error | AxiosError<{ error: string }>
-            handleServerNetworkAppError(dispatch, error)
-            changeTaskEntityStatus('failed')
+            handleServerNetworkAppError(dispatch, e as Error | AxiosError<{ error: string }>)
             return rejectWithValue(null)
+        } finally {
+            changeTaskEntityStatus('idle')
         }
     })
 
@@ -114,21 +113,18 @@ export const updateTask =
                 const res = await todoListsAPI.updateTask(param.todolistId, param.taskId, apiModel)
                 if (res.data.resultCode === ResultCode.SUCCESSFUL) {
                     dispatch(setAppStatus('idle'))
-                    changeTaskEntityStatus('idle')
                     return res.data.data.item
                 } else {
                     handleServerAppError(dispatch, res.data)
                     dispatch(setAppStatus('failed'))
-                    changeTaskEntityStatus('failed')
                     return rejectWithValue(null)
                 }
             } catch (e) {
-                const error = e as Error | AxiosError<{ error: string }>
-                handleServerNetworkAppError(dispatch, error)
-                changeTaskEntityStatus('failed')
+                handleServerNetworkAppError(dispatch, e as Error | AxiosError<{ error: string }>)
                 return rejectWithValue(null)
+            } finally {
+                changeTaskEntityStatus('idle')
             }
-
         })
 
 export const tasksAsyncActions = {

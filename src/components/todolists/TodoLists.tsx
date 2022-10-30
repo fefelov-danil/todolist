@@ -27,7 +27,7 @@ export const TodoLists = () => {
     return (
         <div className={s.todoLists}>
             {todoListsComponents}
-            <div>
+            <div className={s.addingTodos}>
                 {!todoLists.length && <div className={s.firstTodolist}>Create your first TodoList!</div>}
                 <div className={s.addTodolist}>
                     <AddItemForm

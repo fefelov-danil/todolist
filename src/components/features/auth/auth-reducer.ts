@@ -1,24 +1,23 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {setAppLoading, setAppError, setAppStatus} from "app/app-reducer";
-import {authAPI, AuthValues, FieldsErrorsType} from "api/authAPI";
+import {authAPI, AuthValues} from "api/authAPI";
 import {handleServerNetworkAppError} from "utils/error-utils";
 import {AxiosError} from "axios";
+import {ThunkError} from "app/store";
 
-const verifyLoginTC = createAsyncThunk('auth/verifyLogin', async (payload, {dispatch}) => {
+export const verifyLogin = createAsyncThunk('auth/verifyLogin', async (payload, {dispatch}) => {
     dispatch(setAppLoading(true))
     const res = await authAPI.me()
     dispatch(setAppLoading(false))
     return res.data.resultCode === 0
 })
-const loginTC = createAsyncThunk<
-    void, AuthValues,
-    { rejectValue: { errors: string[]; fieldsErrors?: Array<FieldsErrorsType> } }
-    >('auth/auth', async (values: AuthValues, {dispatch, rejectWithValue}) => {
+const loginTC = createAsyncThunk<void, AuthValues, ThunkError>
+('auth/auth', async (values: AuthValues, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatus('loading'))
     try {
         const res = await authAPI.login(values)
         if (res.data.resultCode === 0) {
-            dispatch(verifyLoginTC.fulfilled(true, ''))
+            dispatch(verifyLogin.fulfilled(true, ''))
             dispatch(setAppStatus('succeeded'))
         } else {
             dispatch(setAppError({appError: res.data.messages[0]}))
@@ -27,8 +26,7 @@ const loginTC = createAsyncThunk<
         }
     } catch (e) {
         const error = e as Error | AxiosError<{ error: string }>
-        dispatch(setAppStatus('failed'))
-        handleServerNetworkAppError(dispatch, error)
+        handleServerNetworkAppError(dispatch, error )
         return rejectWithValue({errors: [error.message], fieldsErrors: undefined})
     }
 })
@@ -45,15 +43,13 @@ const logoutTC = createAsyncThunk('auth/logout', async (payload, {dispatch, reje
             return rejectWithValue(null)
         }
     } catch (e) {
-        const error = e as Error | AxiosError<{ error: string }>
-        dispatch(setAppStatus('failed'))
-        handleServerNetworkAppError(dispatch, error)
+        handleServerNetworkAppError(dispatch, e as Error | AxiosError<{ error: string }>)
         return rejectWithValue(null)
     }
 })
 
 export const authAsyncActions = {
-    verifyLoginTC,
+    verifyLogin,
     loginTC,
     logoutTC
 }
@@ -65,10 +61,10 @@ const slice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(logoutTC.fulfilled, (state, action) => {
+        builder.addCase(logoutTC.fulfilled, (state) => {
             state.isVerifyLogin = false
         })
-        builder.addCase(verifyLoginTC.fulfilled, (state, action) => {
+        builder.addCase(verifyLogin.fulfilled, (state, action) => {
             state.isVerifyLogin = action.payload
         })
     }
