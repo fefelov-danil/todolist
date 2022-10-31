@@ -9,9 +9,9 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {FormikHelpers, useFormik} from "formik";
-import {useAppDispatch} from "app";
 import {ErrorSnackbar} from "components/errorSnackbar";
 import {authAsyncActions} from "./auth-reducer";
+import {useAppDispatch} from "utils/redux-utils";
 
 type FormValuesType = {
     email: string

@@ -10,8 +10,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import {Button, List} from "@mui/material";
 import {RequestStatusType} from "app/app-reducer";
 import {tasksActions, todoListsActions, todosSelectors} from "components/todolists/index";
-import {useActions} from "app/store";
 import {authSelectors} from "components/features/auth";
+import {useActions} from "utils/redux-utils";
 
 type TodoListPropsType = {
     todoListID: string

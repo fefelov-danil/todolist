@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {useAppSelector} from "app";
 import {authActions, authSelectors} from "components/features/auth";
-import {useActions} from "app/store";
+import {useActions} from "utils/redux-utils";
 
 export const Nav = React.memo(() => {
     const isVerifyLogin = useAppSelector(authSelectors.selectVerifyLogin)

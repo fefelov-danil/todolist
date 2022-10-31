@@ -3,9 +3,9 @@ import s from './TodoLists.module.css'
 import {AddItemForm} from "components/addItemForm/AddItemForm";
 import {TodoList} from "components/todolists/todolist/TodoList";
 import {useAppSelector} from "app/hooks";
-import {useActions} from "app/store";
 import {todoListsAsyncActions} from "components/todolists/reducers/todolists-reducer";
 import {selectTodoLists} from "components/todolists/selectors";
+import {useActions} from "utils/redux-utils";
 
 export const TodoLists = () => {
     const todoLists = useAppSelector(selectTodoLists)

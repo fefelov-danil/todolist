@@ -12,10 +12,10 @@ import {TodoLists} from "components/todolists";
 import {Login} from "components/features/auth";
 import {authActions, authSelectors} from "components/features/auth";
 import {appSelectors} from "./";
-import {useActions} from "app/store";
 import {todoListsActions} from "components/todolists";
 import mainBg from 'assets/images/todo-fon.jpg'
 import {Header} from "header/Header";
+import {useActions} from "utils/redux-utils";
 
 export function App() {
 

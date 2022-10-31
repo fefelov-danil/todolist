@@ -4,8 +4,8 @@ import {EditableSpan} from "components/editableSpan/EditableSpan";
 import {TaskDomainType, TaskStatuses} from "api/todoListsAPI";
 import {Checkbox, ListItem} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
-import {useActions} from "app/store";
 import {tasksActions} from "components/todolists/index";
+import {useActions} from "utils/redux-utils";
 
 type TaskPropsType = {
     todoListID: string

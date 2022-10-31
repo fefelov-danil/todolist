@@ -4,8 +4,8 @@ import {
 } from 'components/todolists/reducers/tasks-reducer';
 import {todoListsActions} from 'components/todolists/index';
 import {TaskPriorities, TaskStatuses, TaskType, TodoListType} from "api/todoListsAPI";
-import {useActions} from "app/store";
 import {tasksActions} from "components/todolists/index";
+import {useActions} from "utils/redux-utils";
 
 let startState: TasksStateType
 let initialState: TasksStateType
