@@ -1,13 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
-import s from "header/nav/Nav.module.css"
+import s from "components/header/nav/Nav.module.css"
 import {NavLink} from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
-import {useAppSelector} from "app";
-import {authActions, authSelectors} from "components/features/auth";
-import {useActions} from "utils/redux-utils";
+import {authActions, authSelectors} from "features/auth";
+import {useActions} from "features/utils/redux-utils";
+import {useSelector} from "react-redux";
 
 export const Nav = React.memo(() => {
-    const isVerifyLogin = useAppSelector(authSelectors.selectVerifyLogin)
+    const isVerifyLogin = useSelector(authSelectors.selectVerifyLogin)
     const {logoutTC} = useActions(authActions)
 
     const logoutHandler = () => {

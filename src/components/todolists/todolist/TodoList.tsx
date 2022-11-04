@@ -4,14 +4,14 @@ import {AddItemForm} from "components/addItemForm/AddItemForm";
 import {EditableSpan} from "components/editableSpan/EditableSpan";
 import {Task} from "components/todolists/todolist/task/Task";
 import {FilterValuesType, TaskStatuses} from "api/todoListsAPI";
-import {useAppSelector} from "app/hooks";
 import IconButton from '@mui/material/IconButton/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import {Button, List} from "@mui/material";
-import {RequestStatusType} from "app/app-reducer";
+import {RequestStatusType} from "app/reducers/app-reducer";
 import {tasksActions, todoListsActions, todosSelectors} from "components/todolists/index";
-import {authSelectors} from "components/features/auth";
-import {useActions} from "utils/redux-utils";
+import {authSelectors} from "features/auth";
+import {useActions} from "features/utils/redux-utils";
+import {useSelector} from "react-redux";
 
 type TodoListPropsType = {
     todoListID: string
@@ -21,8 +21,8 @@ type TodoListPropsType = {
 }
 
 export const TodoList = React.memo((props: TodoListPropsType) => {
-    const tasks = useAppSelector(todosSelectors.selectTasks)[props.todoListID]
-    const isVerifyLogin = useAppSelector(authSelectors.selectVerifyLogin)
+    const tasks = useSelector(todosSelectors.selectTasks)[props.todoListID]
+    const isVerifyLogin = useSelector(authSelectors.selectVerifyLogin)
     const {addTask, fetchTasks} = useActions(tasksActions)
     const {removeTodolist, changeTodolistTitle, changeTodoListFilter} = useActions(todoListsActions)
 

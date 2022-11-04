@@ -5,7 +5,7 @@ import {
 import {todoListsActions} from 'components/todolists/index';
 import {TaskPriorities, TaskStatuses, TaskType, TodoListType} from "api/todoListsAPI";
 import {tasksActions} from "components/todolists/index";
-import {useActions} from "utils/redux-utils";
+import {useActions} from "features/utils/redux-utils";
 
 let startState: TasksStateType
 let initialState: TasksStateType

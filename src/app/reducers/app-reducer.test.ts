@@ -4,7 +4,7 @@ import {
     RequestStatusType, setAppLoading,
     setAppError,
     setAppStatus,
-} from "app/app-reducer";
+} from "app/reducers/app-reducer";
 
 let initialState : appReducerStateType
 

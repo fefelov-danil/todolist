@@ -1,14 +1,12 @@
 import {
-    ResultCode,
-    TaskDomainType,
+    ResultCode, TaskDomainType,
     TaskPriorities,
     TaskStatuses,
-    todoListsAPI,
-    UpdateTaskModelType
+    todoListsAPI, UpdateTaskModelType
 } from "api/todoListsAPI";
 import {RootState} from "app/store";
-import {RequestStatusType, setAppStatus} from "app/app-reducer";
-import {handleServerAppError, handleServerNetworkAppError} from "utils/error-utils";
+import {RequestStatusType, setAppStatus} from "app/reducers/app-reducer";
+import {handleServerAppError, handleServerNetworkAppError} from "features/utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
 import {changeTodoListEntityStatus, todoListsAsyncActions} from "components/todolists/reducers/todolists-reducer";

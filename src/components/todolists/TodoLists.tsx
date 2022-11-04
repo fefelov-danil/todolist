@@ -2,13 +2,13 @@ import React from 'react';
 import s from './TodoLists.module.css'
 import {AddItemForm} from "components/addItemForm/AddItemForm";
 import {TodoList} from "components/todolists/todolist/TodoList";
-import {useAppSelector} from "app/hooks";
 import {todoListsAsyncActions} from "components/todolists/reducers/todolists-reducer";
 import {selectTodoLists} from "components/todolists/selectors";
-import {useActions} from "utils/redux-utils";
+import {useActions} from "features/utils/redux-utils";
+import {useSelector} from "react-redux";
 
 export const TodoLists = () => {
-    const todoLists = useAppSelector(selectTodoLists)
+    const todoLists = useSelector(selectTodoLists)
     const {addTodolist} = useActions(todoListsAsyncActions)
 
     //GUI:

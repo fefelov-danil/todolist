@@ -1,8 +1,8 @@
 import {AnyAction, combineReducers} from "redux";
 import {tasksReducer, todoListsReducer} from "components/todolists";
 import thunk, {ThunkAction} from "redux-thunk";
-import {appReducer} from "app/app-reducer";
-import {authReducer} from "components/features/auth";
+import {appReducer} from "app/reducers/app-reducer";
+import {authReducer} from "features/auth";
 import {configureStore} from "@reduxjs/toolkit";
 import {FieldsErrorsType} from "api/authAPI";
 

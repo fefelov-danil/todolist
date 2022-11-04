@@ -1,7 +1,6 @@
 import * as appSelectors from './selectors'
-import {sliceAppReducer} from './app-reducer'
-import {useAppSelector} from './hooks'
-import {useAppDispatch} from "utils/redux-utils";
+import {sliceAppReducer} from 'app/reducers/app-reducer'
+import {useAppDispatch} from "features/utils/redux-utils";
 
 const appActions = {
     ...sliceAppReducer.actions
@@ -10,6 +9,5 @@ const appActions = {
 export {
     appSelectors,
     appActions,
-    useAppDispatch,
-    useAppSelector
+    useAppDispatch
 }

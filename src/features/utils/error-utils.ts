@@ -1,7 +1,7 @@
-import {ResponseType} from "api/todoListsAPI";
-import {setAppError, setAppStatus} from "app/app-reducer";
+import {setAppError, setAppStatus} from "app/reducers/app-reducer";
 import {Dispatch} from "redux";
 import {AxiosError} from "axios";
+import {ResponseType} from "api/todoListsAPI";
 
 export const handleServerAppError = <T>(dispatch: Dispatch, response: ResponseType<T>) => {
     if (response.messages.length) {

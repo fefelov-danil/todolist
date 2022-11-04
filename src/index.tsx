@@ -22,4 +22,4 @@ root.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-export {useAppDispatch} from "utils/redux-utils";
+export {useAppDispatch} from "features/utils/redux-utils";

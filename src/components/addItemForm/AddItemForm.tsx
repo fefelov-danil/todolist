@@ -1,8 +1,7 @@
-import React, {KeyboardEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useRef, useState} from 'react';
 import s from './AddItemForm.module.css'
 import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
-import {useFormik} from "formik";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -10,14 +9,13 @@ type AddItemFormPropsType = {
     disabled?: boolean
 }
 
-type FormikErrorType = {
-    value?: string
-}
-
 export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((
     {addItem, disabled, value}
 ) => {
     const [editMode, setEditMode] = useState<boolean>(false)
+    const [title, setTitle] = useState<string>('')
+    const [error, setError] = useState<boolean | string>(false)
+
     const form = useRef(null as HTMLDivElement | null)
 
     const handleClick = (e: any) => {
@@ -28,34 +26,32 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((
     }
     document.addEventListener('click', handleClick)
 
-    const formik = useFormik({
-        initialValues: {
-            value: ''
-        },
-        validate: (values) => {
-            const errors: FormikErrorType = {}
-
-            if (!values.value) {
-                errors.value = 'The field is required'
-                if (!editMode) {
-                    errors.value = '';
-                }
-            } else if (values.value.length > 100) {
-                errors.value = 'Length no more than 100 characters';
-            }
-
-            return errors
-        },
-        onSubmit: (values: {value: string}, {resetForm}) => {
-            addItem(values.value)
-            resetForm();
+    const onEditMode = () => {
+        !disabled && setEditMode(true)
+    }
+    const addItemHandler = () => {
+        const itemTitle = title.trim()
+        if (itemTitle) {
+            addItem(itemTitle)
+            setTitle('')
             setEditMode(false)
+        } else {
+            setError("The field is required")
         }
-    })
+    }
 
-    const onKeyDownAddTask = (e: KeyboardEvent<HTMLInputElement>) => {
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+        const itemTitle = e.currentTarget.value.trim()
+        if (error && itemTitle) setError(false)
+        if (itemTitle.length >= 100) setError("Length no more than 100 characters")
+    }
+    const onKeyDownAddItem = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Escape') {
             setEditMode(false)
+        }
+        if (e.key === 'Enter') {
+            addItemHandler()
         }
     }
 
@@ -63,26 +59,25 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((
         <div className={s.addItemForm}>
             {editMode
                 ? <span ref={form} className={s.editMode}>
-                    <form onSubmit={formik.handleSubmit}>
-                        <input
-                            autoFocus
-                            disabled={disabled}
-                            onKeyDown={onKeyDownAddTask}
-                            {...formik.getFieldProps('value')}
-                        />
-                        <IconButton
-                            type={"submit"}
-                            className={s.addItemIcon}
-                            sx={{color: '#333', padding: '0px'}}
-                            size={"small"}
-                        >
-                            <AddIcon sx={{color: '#333'}}/>
-                        </IconButton>
-                        {editMode && formik.errors.value &&
-                            <div className={s.formError}>{formik.errors.value}</div>}
-                    </form>
+                    <input
+                        className={error ? s.errorInp : ''}
+                        value={title}
+                        autoFocus
+                        onChange={onChangeHandler}
+                        onKeyDown={onKeyDownAddItem}
+                    />
+                    {editMode && error && <div className={s.formError}>{error}</div>}
+                    <IconButton
+                        type={"submit"}
+                        className={s.addItemIcon}
+                        onClick={addItemHandler}
+                        sx={{color: '#333', padding: '0px'}}
+                        size={"small"}
+                    >
+                        <AddIcon sx={{color: '#333'}}/>
+                    </IconButton>
                 </span>
-                : <span className={s.textMode} onClick={() => setEditMode(true)}>
+                : <span className={s.textMode} onClick={onEditMode}>
                     <AddIcon className={s.addItemIcon} sx={{color: '#333'}}/>
                     <span>{value ? value : 'Add item'}</span>
                 </span>

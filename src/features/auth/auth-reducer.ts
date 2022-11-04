@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {setAppLoading, setAppError, setAppStatus} from "app/app-reducer";
+import {setAppLoading, setAppError, setAppStatus} from "app/reducers/app-reducer";
 import {authAPI, AuthValues} from "api/authAPI";
-import {handleServerNetworkAppError} from "utils/error-utils";
+import {handleServerNetworkAppError} from "features/utils/error-utils";
 import {AxiosError} from "axios";
 import {ThunkError} from "app/store";
 

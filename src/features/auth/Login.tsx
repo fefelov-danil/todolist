@@ -1,5 +1,5 @@
 import React from 'react'
-import s from './Login.module.css'
+import s from 'features/auth/Login.module.css'
 import Grid from '@mui/material/Grid';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
@@ -10,8 +10,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {FormikHelpers, useFormik} from "formik";
 import {ErrorSnackbar} from "components/errorSnackbar";
-import {authAsyncActions} from "./auth-reducer";
-import {useAppDispatch} from "utils/redux-utils";
+import {authAsyncActions} from "features/auth/auth-reducer";
+import {useAppDispatch} from "features/utils/redux-utils";
 
 type FormValuesType = {
     email: string
