@@ -6,10 +6,10 @@ import {
 } from "api/todoListsAPI";
 import {RootState} from "app/store";
 import {RequestStatusType, setAppStatus} from "app/reducers/app-reducer";
-import {handleServerAppError, handleServerNetworkAppError} from "features/utils/error-utils";
+import {handleServerAppError, handleServerNetworkAppError} from "utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
-import {changeTodoListEntityStatus, todoListsAsyncActions} from "components/todolists/reducers/todolists-reducer";
+import {changeTodoListEntityStatus, todoListsAsyncActions} from "features/todolists/reducers/todolists-reducer";
 
 export const fetchTasks =
     createAsyncThunk('tasks/fetchTasks', async (todolistId: string, {dispatch, rejectWithValue}) => {

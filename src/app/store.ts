@@ -1,5 +1,5 @@
 import {AnyAction, combineReducers} from "redux";
-import {tasksReducer, todoListsReducer} from "components/todolists";
+import {tasksReducer, todoListsReducer} from "features/todolists";
 import thunk, {ThunkAction} from "redux-thunk";
 import {appReducer} from "app/reducers/app-reducer";
 import {authReducer} from "features/auth";

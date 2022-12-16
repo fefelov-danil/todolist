@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
-import s from "components/header/nav/Nav.module.css"
+import s from "common/header/nav/Nav.module.css"
 import {NavLink} from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {authActions, authSelectors} from "features/auth";
-import {useActions} from "features/utils/redux-utils";
+import {useActions} from "utils/redux-utils";
 import {useSelector} from "react-redux";
 
 export const Nav = React.memo(() => {

@@ -1,11 +1,11 @@
 import {
     changeTaskEntityStatusAC, tasksReducer,
     TasksStateType
-} from 'components/todolists/reducers/tasks-reducer';
-import {todoListsActions} from 'components/todolists/index';
+} from 'features/todolists/reducers/tasks-reducer';
+import {todoListsActions} from 'features/todolists/index';
 import {TaskPriorities, TaskStatuses, TaskType, TodoListType} from "api/todoListsAPI";
-import {tasksActions} from "components/todolists/index";
-import {useActions} from "features/utils/redux-utils";
+import {tasksActions} from "features/todolists/index";
+import {useActions} from "utils/redux-utils";
 
 let startState: TasksStateType
 let initialState: TasksStateType

@@ -4,17 +4,17 @@ import 'assets/geniral-css/style.css';
 import s from './App.module.css';
 import LinearProgress from "@mui/material/LinearProgress";
 import CircularProgress from "@mui/material/CircularProgress";
-import {ErrorSnackbar} from "components/errorSnackbar";
+import {ErrorSnackbar} from "common/errorSnackbar";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {PageNotFound} from "components/404";
-import {TodoLists} from "components/todolists";
+import {PageNotFound} from "common/404";
+import {TodoLists} from "features/todolists";
 import {Login} from "features/auth";
 import {authActions, authSelectors} from "features/auth";
 import {appSelectors} from "./";
-import {todoListsActions} from "components/todolists";
+import {todoListsActions} from "features/todolists";
 import mainBg from 'assets/images/todo-fon.jpg'
-import {Header} from "components/header/Header";
-import {useActions} from "features/utils/redux-utils";
+import {Header} from "common/header/Header";
+import {useActions} from "utils/redux-utils";
 import {useSelector} from "react-redux";
 
 export function App() {

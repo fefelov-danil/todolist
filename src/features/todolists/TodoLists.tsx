@@ -1,10 +1,10 @@
 import React from 'react';
-import s from './TodoLists.module.css'
-import {AddItemForm} from "components/addItemForm/AddItemForm";
-import {TodoList} from "components/todolists/todolist/TodoList";
-import {todoListsAsyncActions} from "components/todolists/reducers/todolists-reducer";
-import {selectTodoLists} from "components/todolists/selectors";
-import {useActions} from "features/utils/redux-utils";
+import s from 'features/todolists/TodoLists.module.css'
+import {AddItemForm} from "common/addItemForm/AddItemForm";
+import {TodoList} from "features/todolists/todolist/TodoList";
+import {todoListsAsyncActions} from "features/todolists/reducers/todolists-reducer";
+import {selectTodoLists} from "features/todolists/selectors";
+import {useActions} from "utils/redux-utils";
 import {useSelector} from "react-redux";
 
 export const TodoLists = () => {

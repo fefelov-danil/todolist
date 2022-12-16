@@ -1,7 +1,7 @@
 import {
     changeTodoListEntityStatus, changeTodoListFilter, todoListsReducer
-} from "components/todolists/reducers/todolists-reducer";
-import {todoListsActions} from 'components/todolists/index';
+} from "features/todolists/reducers/todolists-reducer";
+import {todoListsActions} from 'features/todolists/index';
 import {TodolistDomainType, TodoListType} from "api/todoListsAPI";
 
 let startState: Array<TodolistDomainType>

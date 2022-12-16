@@ -1,6 +1,6 @@
-import {todoListsReducer} from "components/todolists/reducers/todolists-reducer";
-import {tasksReducer, TasksStateType} from "components/todolists/reducers/tasks-reducer";
-import {todoListsActions} from 'components/todolists/index';
+import {todoListsReducer} from "features/todolists/reducers/todolists-reducer";
+import {tasksReducer, TasksStateType} from "features/todolists/reducers/tasks-reducer";
+import {todoListsActions} from 'features/todolists/index';
 import {TodolistDomainType, TodoListType} from "api/todoListsAPI";
 
 let startTasksState: TasksStateType

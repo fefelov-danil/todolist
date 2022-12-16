@@ -1,16 +1,16 @@
 import React, {useCallback, useEffect} from 'react';
-import s from './Todolist.module.css';
-import {AddItemForm} from "components/addItemForm/AddItemForm";
-import {EditableSpan} from "components/editableSpan/EditableSpan";
-import {Task} from "components/todolists/todolist/task/Task";
+import s from 'features/todolists/todolist/Todolist.module.css';
+import {AddItemForm} from "common/addItemForm/AddItemForm";
+import {EditableSpan} from "common/editableSpan/EditableSpan";
+import {Task} from "features/todolists/todolist/task/Task";
 import {FilterValuesType, TaskStatuses} from "api/todoListsAPI";
 import IconButton from '@mui/material/IconButton/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import {Button, List} from "@mui/material";
 import {RequestStatusType} from "app/reducers/app-reducer";
-import {tasksActions, todoListsActions, todosSelectors} from "components/todolists/index";
+import {tasksActions, todoListsActions, todosSelectors} from "features/todolists/index";
 import {authSelectors} from "features/auth";
-import {useActions} from "features/utils/redux-utils";
+import {useActions} from "utils/redux-utils";
 import {useSelector} from "react-redux";
 
 type TodoListPropsType = {

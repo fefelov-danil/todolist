@@ -1,6 +1,6 @@
 import {FilterValuesType, ResultCode, TodolistDomainType, todoListsAPI} from "api/todoListsAPI";
 import {RequestStatusType, setAppStatus,} from "app/reducers/app-reducer";
-import {handleServerAppError, handleServerNetworkAppError} from "features/utils/error-utils";
+import {handleServerAppError, handleServerNetworkAppError} from "utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
 
