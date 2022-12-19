@@ -158,3 +158,13 @@
   font-size: 18px;
   margin-right: 5px;
 }
+@media (max-width: 800px) {
+  .menu {
+    width: 60%;
+  }
+}
+@media (max-width: 500px) {
+  .menu {
+    width: 100%;
+  }
+}
