@@ -75,9 +75,11 @@ export const todoListsAsyncActions = {
   changeTodolistTitle
 }
 
+const initialState = [] as Array<TodolistDomainType>
+
 export const sliceTodoListsReducer = createSlice({
   name: 'todoLists',
-  initialState: [] as Array<TodolistDomainType>,
+  initialState,
   reducers: {
     changeTodoListFilter(state, action: PayloadAction<{ id: string, filter: FilterValuesType }>) {
       const index = state.findIndex(tl => tl.id === action.payload.id)
@@ -86,7 +88,8 @@ export const sliceTodoListsReducer = createSlice({
     changeTodoListEntityStatus(state, action: PayloadAction<{ id: string, entityStatus: RequestStatusType }>) {
       const index = state.findIndex(tl => tl.id === action.payload.id)
       state[index].entityStatus = action.payload.entityStatus
-    }
+    },
+    clearTodoLists: () => initialState
   },
   extraReducers: (builder) => {
     builder.addCase(fetchTodoLists.fulfilled, (state, action) => {
@@ -110,5 +113,6 @@ export const sliceTodoListsReducer = createSlice({
 export const todoListsReducer = sliceTodoListsReducer.reducer
 export const {
   changeTodoListFilter,
-  changeTodoListEntityStatus
+  changeTodoListEntityStatus,
+  clearTodoLists
 } = sliceTodoListsReducer.actions
