@@ -79,7 +79,7 @@
   display: inline-block;
   width: 100%;
   padding-right: 15px;
-  word-break: break-all;
+  overflow-x: hidden;
 }
 .big .textMode {
   padding: 5px;
