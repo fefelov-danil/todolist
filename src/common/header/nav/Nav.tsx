@@ -5,6 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import {authActions, authSelectors} from "features/auth";
 import {useActions} from "utils/redux-utils";
 import {useSelector} from "react-redux";
+import {PATH} from "common/routes/Pages";
 
 export const Nav = React.memo(() => {
     const isVerifyLogin = useSelector(authSelectors.selectVerifyLogin)
@@ -41,9 +42,10 @@ export const Nav = React.memo(() => {
                      ? `${s.menu} ${s.menuIsOpened}`
                      : `${s.menu} ${s.menuIsClosed}`}>
                 <ul>
-                    <li><NavLink to={'/'} onClick={() => setOpenMenu(false)}>Ссылка 1</NavLink></li>
-                    <li><NavLink to={'/'} onClick={() => setOpenMenu(false)}>Ссылка 2</NavLink></li>
-                    <li><NavLink to={'/'} onClick={() => setOpenMenu(false)}>Ссылка 3</NavLink></li>
+                    <li><NavLink to={'/'} onClick={() => setOpenMenu(false)}>
+                        {isVerifyLogin ? 'TodoList' : 'Login'}
+                    </NavLink></li>
+                    <li><NavLink to={PATH.ABOUT} onClick={() => setOpenMenu(false)}>About</NavLink></li>
                 </ul>
                 {isVerifyLogin &&
                     <p className={s.logout}>
