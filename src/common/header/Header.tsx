@@ -7,7 +7,7 @@ export const Header = () => {
     return (
         <div>
             <header className={s.header}>
-                <p className={s.projectName}>Pet project - TodoList</p>
+                <p className={s.projectName}>TodoList</p>
                 <Nav/>
             </header>
         </div>
