@@ -79,7 +79,7 @@
   display: inline-block;
   width: 100%;
   padding-right: 15px;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 .big .textMode {
   padding: 5px;
