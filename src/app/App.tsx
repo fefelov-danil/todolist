@@ -30,20 +30,18 @@ export function App() {
     }
   }, [isVerifyLogin])
 
+  if (isAppLoading) return <div className={'circularProgress'}><CircularProgress/></div>
+
   return (
     <div className={s.App} style={{backgroundImage: `url('${mainBg}')`}}>
-      {isAppLoading ? (
-          <div className={'circularProgress'}><CircularProgress/></div>
-        ) : (
-          <div>
-            <div className={'linear-progress'}>
-              {appStatus === 'loading' && <LinearProgress/>}
-            </div>
-            <Header/>
-            <ErrorSnackbar/>
-            <Pages />
-          </div>
-        )}
+      <div>
+        <div className={'linear-progress'}>
+          {appStatus === 'loading' && <LinearProgress/>}
+        </div>
+        <Header/>
+        <ErrorSnackbar/>
+        <Pages />
+      </div>
     </div>
   );
 }
