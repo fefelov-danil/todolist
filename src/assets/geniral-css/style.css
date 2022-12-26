@@ -4,21 +4,25 @@
   src: url('../fonts/OpenSansRegular.eot'), url("../fonts/OpenSansRegular.woff"), url("../fonts/OpenSansRegular.ttf");
   font-weight: 300;
 }
+
 @font-face {
   font-family: "OpenSans";
   src: url('../fonts/OpenSansBold.eot'), url("../fonts/OpenSansBold.woff"), url("../fonts/OpenSansBold.ttf");
   font-weight: 600;
 }
+
 @font-face {
   font-family: "Oswald";
   src: url('../fonts/Oswald-Light.eot'), url("../fonts/Oswald-Light.woff"), url("../fonts/Oswald-Light.ttf");
   font-weight: 200;
 }
+
 @font-face {
   font-family: "Oswald";
   src: url('../fonts/Oswald-Regular.eot'), url("../fonts/Oswald-Regular.woff"), url("../fonts/Oswald-Regular.ttf");
   font-weight: 400;
 }
+
 @font-face {
   font-family: "Oswald";
   src: url('../fonts/Oswald-Medium.eot'), url("../fonts/Oswald-Medium.woff"), url("../fonts/Oswald-Medium.ttf");
@@ -29,13 +33,16 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
   "Segoe UI Symbol", "Noto Color Emoji";
 }
+
 #root {
   overflow: hidden;
 }
+
 a,
 p,
 li {
@@ -45,16 +52,20 @@ li {
   line-height: 1.3;
   color: #333;
 }
+
 p {
   margin-bottom: 20px;
 }
+
 a {
   text-decoration: none;
   color: #333;
 }
+
 a:focus {
   outline: unset;
 }
+
 h1,
 h2 {
   font-family: "Oswald", sans-serif;
@@ -63,12 +74,15 @@ h2 {
   line-height: 1.3;
   margin-bottom: 25px;
 }
+
 h1 {
   font-size: 50px;
 }
+
 h2 {
   font-size: 40px;
 }
+
 h3,
 h4 {
   font-family: "Oswald", sans-serif;
@@ -76,65 +90,83 @@ h4 {
   line-height: 1.3;
   margin-bottom: 15px;
 }
+
 h3 {
   font-size: 32px;
 }
+
 h4 {
   font-size: 26px;
 }
+
 strong,
 b {
   font-weight: 600;
 }
+
 mark {
   background-color: unset;
 }
+
 img {
   max-width: 100%;
 }
+
 hr {
   margin: 20px 0;
   border-width: 0;
   border-top: 1px solid #e0dede;
 }
+
 @media (max-width: 1020px) {
   h1 {
     font-size: 42px;
   }
+
   h2 {
     font-size: 35px;
   }
+
   h3 {
     font-size: 27px;
   }
+
   h4 {
     font-size: 23px;
   }
 }
+
 @media (max-width: 800px) {
   h1 {
     font-size: 35px;
   }
+
   h2 {
     font-size: 30px;
   }
+
   h3 {
     font-size: 24px;
   }
+
   h4 {
     font-size: 20px;
   }
 }
+
 @media (max-width: 500px) {
   h1 {
     font-size: 30px;
   }
+
   h2 {
     font-size: 26px;
   }
+
   h3 {
     font-size: 22px;
   }
+
   h4 {
     font-size: 18px;
   }
@@ -151,12 +183,14 @@ hr {
 ul.ul-custom {
   margin-bottom: 20px;
 }
+
 ul.ul-custom li {
   position: relative;
   margin-bottom: 3px;
   padding-left: 24px;
   line-height: 1.3;
 }
+
 ul.ul-custom li:before {
   content: "";
   position: absolute;
@@ -174,12 +208,14 @@ ul.ul-custom li:before {
   height: 4px;
   z-index: 99;
 }
+
 .linear-progress > div {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
 }
+
 .circularProgress {
   position: absolute;
   left: 50%;
@@ -195,11 +231,13 @@ ul.ul-custom li:before {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
   margin: 80px auto 40px auto;
 }
+
 @media (max-width: 1020px) {
   .information {
     margin: 70px 20px 30px 20px;
   }
 }
+
 @media (max-width: 450px) {
   .information {
     padding: 25px;

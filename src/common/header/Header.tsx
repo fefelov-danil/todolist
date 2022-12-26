@@ -4,12 +4,12 @@ import {Nav} from "common/header/nav/Nav";
 
 export const Header = () => {
 
-    return (
-        <div>
-            <header className={s.header}>
-                <p className={s.projectName}>TodoList</p>
-                <Nav/>
-            </header>
-        </div>
-    );
+  return (
+    <div>
+      <header className={s.header}>
+        <p className={s.projectName}>TodoList</p>
+        <Nav/>
+      </header>
+    </div>
+  );
 };

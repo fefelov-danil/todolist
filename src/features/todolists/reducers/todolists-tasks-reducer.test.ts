@@ -8,19 +8,19 @@ let startTodoListsState: Array<TodolistDomainType>
 let todolist: TodoListType
 
 beforeEach(() => {
-    startTasksState = {}
-    startTodoListsState = []
-    todolist = {id: 'todolistId1', title: 'Todo1', order: 0, addedDate: ''}
+  startTasksState = {}
+  startTodoListsState = []
+  todolist = {id: 'todolistId1', title: 'Todo1', order: 0, addedDate: ''}
 })
 
 test('ids should be equals', () => {
-    const action = todoListsActions.addTodolist.fulfilled(todolist, '', 'Title1')
+  const action = todoListsActions.addTodolist.fulfilled(todolist, '', 'Title1')
 
-    const endTasksState = tasksReducer(startTasksState, action)
-    const endTodolistsState = todoListsReducer(startTodoListsState, action)
+  const endTasksState = tasksReducer(startTasksState, action)
+  const endTodolistsState = todoListsReducer(startTodoListsState, action)
 
-    const keysOfTasksState = Object.keys(endTasksState)
+  const keysOfTasksState = Object.keys(endTasksState)
 
-    expect(keysOfTasksState[0]).toBe(endTodolistsState[0].id)
-    expect(keysOfTasksState[0]).toBe(action.payload?.id)
+  expect(keysOfTasksState[0]).toBe(endTodolistsState[0].id)
+  expect(keysOfTasksState[0]).toBe(action.payload?.id)
 })

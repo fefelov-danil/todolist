@@ -6,9 +6,9 @@ import {useMemo} from "react";
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 export function useActions<T extends ActionCreatorsMapObject<any>>(actions: T) {
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
-    return useMemo(() => {
-        return bindActionCreators(actions, dispatch)
-    }, [])
+  return useMemo(() => {
+    return bindActionCreators(actions, dispatch)
+  }, [])
 }

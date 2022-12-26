@@ -61,7 +61,7 @@ export const authAsyncActions = {
 const slice = createSlice({
   name: 'auth',
   initialState: {
-    isVerifyLogin: false
+    isVerifyLogin: 'waiting' as IsVerifyLoginType
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -75,3 +75,6 @@ const slice = createSlice({
 })
 
 export const authReducer = slice.reducer
+
+// Types
+export type IsVerifyLoginType = 'waiting' | true | false

@@ -3,11 +3,11 @@ import {sliceAppReducer} from 'app/reducers/app-reducer'
 import {useAppDispatch} from "utils/redux-utils";
 
 const appActions = {
-    ...sliceAppReducer.actions
+  ...sliceAppReducer.actions
 }
 
 export {
-    appSelectors,
-    appActions,
-    useAppDispatch
+  appSelectors,
+  appActions,
+  useAppDispatch
 }

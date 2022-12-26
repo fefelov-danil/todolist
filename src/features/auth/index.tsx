@@ -4,8 +4,8 @@ import {authReducer} from 'features/auth/auth-reducer'
 import {Login} from 'features/auth/Login'
 
 export {
-    authSelectors,
-    authActions,
-    authReducer,
-    Login
+  authSelectors,
+  authActions,
+  authReducer,
+  Login
 }

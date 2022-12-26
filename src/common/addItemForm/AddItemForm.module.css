@@ -5,11 +5,13 @@
   border-radius: 3px;
   margin: 18px 0 10px 0;
 }
+
 .editMode {
   position: relative;
   display: inline-block;
   width: 100%;
 }
+
 .editMode input {
   width: 100%;
   padding: 6px 20px 6px 10px;
@@ -17,6 +19,7 @@
   color: #333;
   border: 0;
 }
+
 .editMode .errorText {
   position: absolute;
   left: 14px;
@@ -24,6 +27,7 @@
   transform: translate(0px, -50%);
   color: #333;
 }
+
 .editMode .addItemIcon {
   position: absolute;
   top: 50%;
@@ -31,9 +35,11 @@
   transform: translate(0px, -50%);
   z-index: 10;
 }
+
 .editMode .addItemIcon .disabledIcon {
   opacity: 0.5;
 }
+
 .formError {
   position: absolute;
   left: -8px;
@@ -49,6 +55,7 @@
   animation-iteration-count: 1;
   z-index: 1;
 }
+
 @keyframes fade {
   0% {
     opacity: 0;
@@ -60,6 +67,7 @@
     opacity: 1;
   }
 }
+
 .formError:before {
   content: '';
   position: absolute;
@@ -71,6 +79,7 @@
   background: #434F5C;
   z-index: -1;
 }
+
 .textMode {
   display: flex;
   align-items: center;
@@ -79,6 +88,7 @@
   color: #333;
   cursor: pointer;
 }
+
 .textMode span {
   pointer-events: none;
 }

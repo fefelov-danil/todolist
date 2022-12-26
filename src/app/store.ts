@@ -7,15 +7,15 @@ import {configureStore} from "@reduxjs/toolkit";
 import {FieldsErrorsType} from "api/authAPI";
 
 const rootReducer = combineReducers({
-    todoLists: todoListsReducer,
-    tasks: tasksReducer,
-    app: appReducer,
-    login: authReducer
+  todoLists: todoListsReducer,
+  tasks: tasksReducer,
+  app: appReducer,
+  login: authReducer
 })
 
 export const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk)
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk)
 })
 
 export type RootState = ReturnType<typeof store.getState>

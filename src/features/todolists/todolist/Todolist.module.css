@@ -8,12 +8,14 @@
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
   margin-right: 30px;
 }
+
 .todolist .todoTitle {
   font-family: "Oswald", sans-serif;
   font-size: 20px;
   color: #555;
   margin-bottom: 10px;
 }
+
 .todolist .todoTitle .removeTodo {
   position: absolute;
   top: 0;
@@ -22,24 +24,30 @@
   padding: 0;
   border-radius: 0 7px 0 5px;
 }
+
 .todolist .todoTitle .removeTodo .disabledIcon {
   opacity: 0.5;
 }
+
 .todolist .todoTitle .removeTodo:hover {
   background: #555;
 }
+
 .filterButtons {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .filterButtons button {
   margin: 0 4px;
 }
+
 .filterButtons button:hover {
   background: #1976D2;
   color: #fff;
 }
+
 .noTasks {
   font-style: italic;
 }

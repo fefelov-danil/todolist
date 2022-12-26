@@ -1,23 +1,23 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export const sliceAppReducer = createSlice({
-    name: 'app',
-    initialState: {
-        appStatus: 'idle' as RequestStatusType,
-        appError: null as null | string,
-        isAppLoading: true as boolean
+  name: 'app',
+  initialState: {
+    appStatus: 'idle' as RequestStatusType,
+    appError: null as null | string,
+    isAppLoading: true as boolean
+  },
+  reducers: {
+    setAppStatus(state, action: PayloadAction<RequestStatusType>) {
+      state.appStatus = action.payload
     },
-    reducers: {
-        setAppStatus(state, action: PayloadAction<RequestStatusType>) {
-            state.appStatus = action.payload
-        },
-        setAppError(state, action: PayloadAction<{ appError: null | string }>) {
-            state.appError = action.payload.appError
-        },
-        setAppLoading(state, action: PayloadAction<boolean>) {
-            state.isAppLoading = action.payload
-        }
+    setAppError(state, action: PayloadAction<{ appError: null | string }>) {
+      state.appError = action.payload.appError
+    },
+    setAppLoading(state, action: PayloadAction<boolean>) {
+      state.isAppLoading = action.payload
     }
+  }
 })
 
 export const {setAppStatus, setAppError, setAppLoading} = sliceAppReducer.actions

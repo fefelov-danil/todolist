@@ -7,15 +7,15 @@ import {tasksReducer} from 'features/todolists/reducers/tasks-reducer'
 import {TodoLists} from 'features/todolists/TodoLists'
 
 const todoListsActions = {
-    ...todoListsAsyncActions,
-    ...sliceTodoListsReducer.actions
+  ...todoListsAsyncActions,
+  ...sliceTodoListsReducer.actions
 }
 
 export {
-    todosSelectors,
-    tasksActions,
-    todoListsActions,
-    todoListsReducer,
-    tasksReducer,
-    TodoLists
+  todosSelectors,
+  tasksActions,
+  todoListsActions,
+  todoListsReducer,
+  tasksReducer,
+  TodoLists
 }

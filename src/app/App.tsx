@@ -23,9 +23,9 @@ export function App() {
   const {fetchTodoLists} = useActions(todoListsActions)
 
   useEffect(() => {
-    if (!isVerifyLogin) {
+    if (isVerifyLogin === 'waiting') {
       verifyLogin()
-    } else {
+    } else if (isVerifyLogin) {
       fetchTodoLists()
     }
   }, [isVerifyLogin])

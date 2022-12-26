@@ -15,8 +15,8 @@ export const PrivateAuth: FC<PrivateAuthPropsType> = ({isVerifyLogin, children, 
   if (!isVerifyLogin) {
     return <Navigate
       to={defaultPath ? defaultPath : PATH.LOGIN}
-      state={ {from: location.pathname} }
-      replace={true} />
+      state={{from: location.pathname}}
+      replace={true}/>
   }
 
   return <>{children}</>

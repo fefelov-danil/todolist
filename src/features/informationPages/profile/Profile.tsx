@@ -6,7 +6,7 @@ export const Profile = () => {
   return (
     <div className={'information'}>
       <h1>Hello!</h1>
-      <NavLink to={PATH.TODOLIST} >Todolists</NavLink>
+      <NavLink to={PATH.TODOLIST}>Todolists</NavLink>
     </div>
   );
 };

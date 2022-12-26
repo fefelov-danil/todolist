@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './About.module.css'
+import s from 'features/informationPages/about/About.module.css'
 import photo from 'assets/images/me-for-todo.jpg'
 import TelegramIcon from '@mui/icons-material/Telegram';
 
@@ -14,14 +14,14 @@ export const About = () => {
           </div>
           <div className={s.text}>
             <h3>Hi all! My name is Daniil</h3>
-            <p>This is my project - Todolist.<br />
-              In order to view the functionality, log in with my username and password.<br />
-              LogIn: dfefelov@bk.ru<br />
-              Password: 465865df<br />
-              The backend is used by the IT incubator.<br />
+            <p>This is my project - Todolist.<br/>
+              In order to view the functionality, log in with my username and password.<br/>
+              LogIn: dfefelov@bk.ru<br/>
+              Password: 465865df<br/>
+              The backend is used by the IT incubator.<br/>
               I can answer all questions in telegram -
               <a href="tg://resolve?domain=Danil_Fefelov" target="_blank" title="Telegram">
-                <TelegramIcon />@<span>Danil_Fefelov</span>
+                <TelegramIcon/>@<span>Danil_Fefelov</span>
               </a></p>
           </div>
         </div>
