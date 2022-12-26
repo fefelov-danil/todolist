@@ -4,11 +4,14 @@ import {useSelector} from "react-redux";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {TodoLists} from "features/todolists";
 import {PageNotFound} from "common/404";
-import {About} from "features/informationPages/About";
+import {About} from "features/informationPages/about/About";
+import {PrivateAuth} from "utils/hoc/PrivateAuth";
+import {Profile} from "features/informationPages/profile/Profile";
 
 export const PATH = {
+  TODOLIST: '/',
   LOGIN: '/login',
-  TODOLIST: '/todolist',
+  PROFILE: '/profile',
   ABOUT: '/about'
 }
 
@@ -17,17 +20,21 @@ export const Pages = () => {
 
   return (
     <Routes>
-      {isVerifyLogin ? (
-        <>
-          <Route path={'/'} element={<TodoLists/>}/>
-          <Route path={PATH.TODOLIST} element={<Navigate to={'/'}/>}/>
-        </>
-      ) : (
-        <>
-          <Route path={'/'} element={<Login/>}/>
-          <Route path={PATH.LOGIN} element={<Login/>}/>
-        </>
-      )}
+      <Route path={PATH.TODOLIST} element={
+        <PrivateAuth isVerifyLogin={isVerifyLogin}>
+          <TodoLists/>
+        </PrivateAuth>
+      }/>
+      <Route path={PATH.LOGIN} element={
+        <PrivateAuth isVerifyLogin={!isVerifyLogin} defaultPath={PATH.TODOLIST}>
+          <Login/>
+        </PrivateAuth>
+      }/>
+      <Route path={PATH.PROFILE} element={
+        <PrivateAuth isVerifyLogin={!isVerifyLogin}>
+          <Profile />
+        </PrivateAuth>
+      } />
       <Route path={PATH.ABOUT} element={<About />} />
       <Route path={'/404'} element={<PageNotFound/>}/>
       <Route path={'*'} element={<Navigate to={'/404'}/>}/>
